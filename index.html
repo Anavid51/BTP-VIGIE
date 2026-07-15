@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>BTP Vigie — Suivi de chantier &amp; contrôle qualité</title>
+<meta name="description" content="Application autonome de suivi de chantier et de contrôle qualité pour le BTP. Fonctionne hors-ligne, données stockées sur votre téléphone.">
+<meta name="theme-color" content="#121212">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22BTP%20Vigie%20-%20Suivi%20%26%20Contr%C3%B4le%20Qualit%C3%A9%20BTP%22%2C%20%22short_name%22%3A%20%22BTP%20Vigie%22%2C%20%22description%22%3A%20%22Application%20autonome%20de%20suivi%20de%20chantier%20et%20contr%C3%B4le%20qualit%C3%A9%20pour%20le%20BTP%22%2C%20%22start_url%22%3A%20%22./index.html%22%2C%20%22scope%22%3A%20%22./%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait-primary%22%2C%20%22background_color%22%3A%20%22%23121212%22%2C%20%22theme_color%22%3A%20%22%23D4AF37%22%2C%20%22lang%22%3A%20%22fr%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAIhklEQVR4nO2dyZMVRRCH6zHjxRkuTsAQXFRARfTkxR1ROU/o1XFHFP8iFVARxSsRnFVARfRiaIQ74vIHcPRkEOOhjI6e6rd0V2blUv37TjMd73VlZX4vq7c3M9m7d28AIJflra0t7RiAY3ZoBwB8A4EACQgESEAgQAICARIQCJCAQIAEBAIkIBAgAYEACQgESOBeGCCBDgRILGsHYIJP3ro9411H3/ybPRJ3TPbs2aMdgzR5uvRhhEqNQqByxsxnDD7VLJCWN10qNqk2gexIM4vKZKpHIIo6eUWVH9Eg7gXKqGK54pkKRgbHAg2qlnydjIfHhUuBetbGTlXcBdwfZwL1qYTlMniPv8tkfX1dO4ZefPr2HQtf8/SJv4rHwUFNc/Eh0PyMe8l1lwrmZV2gClK8ENdztCuQ67Rm4HS%2BRgWak02zqWTB3cQtCjQriTYzWAJHGbAlkLvPXzm8pMKQQI4%2BdmLYz4mVR1rtZ0qFWdPvcyVJBv0OBHX6YDZLyh3IbF6sYbYVaQoEewZh06HJ7t27VQb%2B7J07uxufeuNP%2BUjcYSp1Oh3IVArcMTVRU1MqgIJAsIeOHYekBYI9XBhxSFQg2MOLBYfkBII9JVB3SEggv/ZoHZz2R9chtetAjuxx6pAMEgJ1C%2BDInu7PNummVCbm4gJ5t%2Be5b/9NtphFxaGyAtVhDxyag5XHOezQ7T3BlUPCTHbt2lVo1xdP7ku2PPn6H4XG4qKJuW1Pw8cP3BJ/MD4RycyXEsidPe2Ap9oTgUMJRQTya88cdRrgUBscAw2zp/2yboVGCH8H8tV%2BhtrT0PShYHiCArUo3oHMJjcQ7Ilvsd%2BKBJLPLJDZVHah2NNg36EE9jg5BXK0eLHYk%2BzBpkPdEvDGWXAJG4M9yX68OMQIm0A2c9eF3Z5kby7ywBhkqQ5ks/0UsifZp0GHypWDRyCDKetS1J5kz/YTwhXhji0Okp0eOX6dZbeMCNiT7P/iyX3ak97GkePXk1BZdsvQgS6d2k/fSVGaCEvbk4xiPDMs4fEfA3VNV%2BTSqf0xTe3rfgLYdKhEaagCmUpQgnDjSbDpUAI9NuYOZKf96NqTDG3HIfYC1Xk33oI9SQB2HOKFJJDNpNixJ2LcIWJUnB3IwvplzZ6IKYd4y5QvkIVcJNi0J2LKoQRKSGwdSL39WLYnYschxmJVchBt356IHYe4qEEgL/ZE2g5VoNFkbW0t422XTx9o//rEa78zxZMfiQt72jRPVWtlj6WIvjuQX3tCK%2BakkL7wKtDl0wdc2xOpwKEcgdRn21bHrz0ROw7lBcDQgYSX8AoaT4KWQyyFc7aE1WdPxE4fGoongWq1J%2BLUITcC1W1PxKNDgwVSuQI0Bnsiwg4l5csY1E0HCiOwJ%2BJrmp4EAgaBQIDE4O%2BFJe9n%2BW7RQg4fuxa2/0meionTPHzsmkxuk9GHvh0dCJAYJtDn797V/jU2BuCapIhJiReCDgRIQCBAAgIBEsvaAfTixvl/QvguhPD9Ue1QpLhxPqw9u6IdxWLQgQAJCARIQCBAAgIBEhAIkFju3g3pD%2BW9YCFa6R00LjoQIAGBAAkIBEhAIEACAgESEAiQ8HEz9bZnbm1%2B/uK9u4O3ry70IT7J%2Bvirv2kHMoxhHSiZXqwlcE1SxKEG%2B%2BhA8py7cDPZsrmxpBKJcSBQSled9nZolICD6G3Msqf/C8YG6V5YqOt2WE85zl24Wa4PqedzaAD%2BOtBjr/waCnzJcFBrYe9DcTpxar4YLFAyyS/fv4cvGCBNUr4Mg/11oBJkdBQcDEUgECABgQAJBoFwGOQUlsLlCKR%2BslDoREwLI6dgeQFgCQMkIFAIWTcocE8jkikQrgZ5h34FKIIO9D%2BDOgraTwP1XliD%2Bk0cOpsbS30uDxayRzeB2aOzdaArZw5y7aoPj778SyhwIrZQDnZ74hTidMRgLFa%2BQMJzFmNzY2mqJbO2VwCllJwPlF05c7Aaq2p1JXCvFaQlrBpdxgyxiDgLAySYBRI%2BlAZDYS8QVSCsYq6hl49/CRNrQoXO5CURPocvURoGgdCEnMJSuCIH0TgSMkihovAIhCbkDq6Ssd0LS7hy5uAjL/1cYs/1IXAX7KsP7i00KNsSBl0cwVisghcSu9azExPh9EQshi3wwStaCE6BurkQcAjMp1sCXmWZOxAWMuOwF6j4vTA0IUUEks8vEBYyI5RevCK4Gw9IFBFIsgk5PRErfQom035CuQ6EhUwRMXtC0SUMDqkgaU%2Bo6Y9sxkXB/t%2BPdrfazmeyc%2BfOogNcPXso2fLwiz/JjGVHpkQasQwUHStSXKCgMatkUC2T2t4IT1lsUAmBgtLcpg4tIJOwNxGtDKsJFASTOzUMXpPEFqmpKKZXSKBgxqEIV1tSaTYJuomVEyhoT3UWGW3JgjcR9ZSKChQMTHgO89uS7iI1FQvJlBYo2Jj2QuwHaSRCBYGCmcn34erZQwYDs5NAHYGCpRS4w1Tq1AQKMxIRoNFsDGZM83mgWdOelaaRY9CeEMJkdXVVcfgQwtcf3jd1%2B0Mv/CgciWXMZklfoIjZBKljPDNWHmmdlY5Z6RsJxu0JdjpQZI4udlImg5dU2BIoYv9jVxpHGbAoUPDz%2BWPH3cSNChQWHf3YzCYFp/O1K1DEaVoH4XqO1gWKuE7xHCqYlw%2BBQr/zeRcZD3XNxY1AEe%2Bp9x5/F2cCRXpeXbRTCXcB92eysrKiHUMm33x0f/8XP/j8D%2BUimYrx8LhwLFBkUJ0i5aplKhgZ3AvUkFG8hrwqyo9okHoEilCKKkM16kRqE6iNHZkqk6ZNzQI1aJlUsTcNoxAooZxPYzAmYYwCdclTaoS6dIFAgISVR1qBUyAQIAGBAIlS/y8MjAR0IEACAgESEAiQgECABAQCJCAQIAGBAAkIBEhAIEACAgES/wHfgdwHdkvbMAAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAIhklEQVR4nO2dyZMVRRCH6zHjxRkuTsAQXFRARfTkxR1ROU/o1XFHFP8iFVARxSsRnFVARfRiaIQ74vIHcPRkEOOhjI6e6rd0V2blUv37TjMd73VlZX4vq7c3M9m7d28AIJflra0t7RiAY3ZoBwB8A4EACQgESEAgQAICARIQCJCAQIAEBAIkIBAgAYEACQgESOBeGCCBDgRILGsHYIJP3ro9411H3/ybPRJ3TPbs2aMdgzR5uvRhhEqNQqByxsxnDD7VLJCWN10qNqk2gexIM4vKZKpHIIo6eUWVH9Eg7gXKqGK54pkKRgbHAg2qlnydjIfHhUuBetbGTlXcBdwfZwL1qYTlMniPv8tkfX1dO4ZefPr2HQtf8/SJv4rHwUFNc/Eh0PyMe8l1lwrmZV2gClK8ENdztCuQ67Rm4HS%2BRgWak02zqWTB3cQtCjQriTYzWAJHGbAlkLvPXzm8pMKQQI4%2BdmLYz4mVR1rtZ0qFWdPvcyVJBv0OBHX6YDZLyh3IbF6sYbYVaQoEewZh06HJ7t27VQb%2B7J07uxufeuNP%2BUjcYSp1Oh3IVArcMTVRU1MqgIJAsIeOHYekBYI9XBhxSFQg2MOLBYfkBII9JVB3SEggv/ZoHZz2R9chtetAjuxx6pAMEgJ1C%2BDInu7PNummVCbm4gJ5t%2Be5b/9NtphFxaGyAtVhDxyag5XHOezQ7T3BlUPCTHbt2lVo1xdP7ku2PPn6H4XG4qKJuW1Pw8cP3BJ/MD4RycyXEsidPe2Ap9oTgUMJRQTya88cdRrgUBscAw2zp/2yboVGCH8H8tV%2BhtrT0PShYHiCArUo3oHMJjcQ7Ilvsd%2BKBJLPLJDZVHah2NNg36EE9jg5BXK0eLHYk%2BzBpkPdEvDGWXAJG4M9yX68OMQIm0A2c9eF3Z5kby7ywBhkqQ5ks/0UsifZp0GHypWDRyCDKetS1J5kz/YTwhXhji0Okp0eOX6dZbeMCNiT7P/iyX3ak97GkePXk1BZdsvQgS6d2k/fSVGaCEvbk4xiPDMs4fEfA3VNV%2BTSqf0xTe3rfgLYdKhEaagCmUpQgnDjSbDpUAI9NuYOZKf96NqTDG3HIfYC1Xk33oI9SQB2HOKFJJDNpNixJ2LcIWJUnB3IwvplzZ6IKYd4y5QvkIVcJNi0J2LKoQRKSGwdSL39WLYnYschxmJVchBt356IHYe4qEEgL/ZE2g5VoNFkbW0t422XTx9o//rEa78zxZMfiQt72jRPVWtlj6WIvjuQX3tCK%2BakkL7wKtDl0wdc2xOpwKEcgdRn21bHrz0ROw7lBcDQgYSX8AoaT4KWQyyFc7aE1WdPxE4fGoongWq1J%2BLUITcC1W1PxKNDgwVSuQI0Bnsiwg4l5csY1E0HCiOwJ%2BJrmp4EAgaBQIDE4O%2BFJe9n%2BW7RQg4fuxa2/0meionTPHzsmkxuk9GHvh0dCJAYJtDn797V/jU2BuCapIhJiReCDgRIQCBAAgIBEsvaAfTixvl/QvguhPD9Ue1QpLhxPqw9u6IdxWLQgQAJCARIQCBAAgIBEhAIkFju3g3pD%2BW9YCFa6R00LjoQIAGBAAkIBEhAIEACAgESEAiQ8HEz9bZnbm1%2B/uK9u4O3ry70IT7J%2Bvirv2kHMoxhHSiZXqwlcE1SxKEG%2B%2BhA8py7cDPZsrmxpBKJcSBQSled9nZolICD6G3Msqf/C8YG6V5YqOt2WE85zl24Wa4PqedzaAD%2BOtBjr/waCnzJcFBrYe9DcTpxar4YLFAyyS/fv4cvGCBNUr4Mg/11oBJkdBQcDEUgECABgQAJBoFwGOQUlsLlCKR%2BslDoREwLI6dgeQFgCQMkIFAIWTcocE8jkikQrgZ5h34FKIIO9D%2BDOgraTwP1XliD%2Bk0cOpsbS30uDxayRzeB2aOzdaArZw5y7aoPj778SyhwIrZQDnZ74hTidMRgLFa%2BQMJzFmNzY2mqJbO2VwCllJwPlF05c7Aaq2p1JXCvFaQlrBpdxgyxiDgLAySYBRI%2BlAZDYS8QVSCsYq6hl49/CRNrQoXO5CURPocvURoGgdCEnMJSuCIH0TgSMkihovAIhCbkDq6Ssd0LS7hy5uAjL/1cYs/1IXAX7KsP7i00KNsSBl0cwVisghcSu9azExPh9EQshi3wwStaCE6BurkQcAjMp1sCXmWZOxAWMuOwF6j4vTA0IUUEks8vEBYyI5RevCK4Gw9IFBFIsgk5PRErfQom035CuQ6EhUwRMXtC0SUMDqkgaU%2Bo6Y9sxkXB/t%2BPdrfazmeyc%2BfOogNcPXso2fLwiz/JjGVHpkQasQwUHStSXKCgMatkUC2T2t4IT1lsUAmBgtLcpg4tIJOwNxGtDKsJFASTOzUMXpPEFqmpKKZXSKBgxqEIV1tSaTYJuomVEyhoT3UWGW3JgjcR9ZSKChQMTHgO89uS7iI1FQvJlBYo2Jj2QuwHaSRCBYGCmcn34erZQwYDs5NAHYGCpRS4w1Tq1AQKMxIRoNFsDGZM83mgWdOelaaRY9CeEMJkdXVVcfgQwtcf3jd1%2B0Mv/CgciWXMZklfoIjZBKljPDNWHmmdlY5Z6RsJxu0JdjpQZI4udlImg5dU2BIoYv9jVxpHGbAoUPDz%2BWPH3cSNChQWHf3YzCYFp/O1K1DEaVoH4XqO1gWKuE7xHCqYlw%2BBQr/zeRcZD3XNxY1AEe%2Bp9x5/F2cCRXpeXbRTCXcB92eysrKiHUMm33x0f/8XP/j8D%2BUimYrx8LhwLFBkUJ0i5aplKhgZ3AvUkFG8hrwqyo9okHoEilCKKkM16kRqE6iNHZkqk6ZNzQI1aJlUsTcNoxAooZxPYzAmYYwCdclTaoS6dIFAgISVR1qBUyAQIAGBAIlS/y8MjAR0IEACAgESEAiQgECABAQCJCAQIAGBAAkIBEhAIEACAgES/wHfgdwHdkvbMAAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22maskable%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAAX00lEQVR4nO3dSbMtWVkG4H2LWxMLGFhFE0wU7BAd1USlsWVM6LRQaVTUX6Rghyg1JYKxgh2ikwqNUGnsfwBDRxXEcbCJW6dOs5vMlbm%2B5nlGSt17Tlbmt943V%2B6sc5685z3vOQDQz9Obm5vZxwDABM/NPgAA5lAAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNKQCAphQAQFMKAKApBQDQlAIAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBo6unNzc3sYwBgAjsAgKYUAEBTCgCgKQUA0JQCAGhKAQA09XT2AcBgf/F7P7DRV/7o7/7vRl8Zpnjy7ne/e/YxwHW2i/g11APpKADiihn011IMhKUAiKJG3F9CJRCEAmCaPol/mj5gFgXAroT%2BacqAPSkAtiXx19AHbEoBsAm5P5YmYAsKgGGE/j6UAaMoANaS%2B7NoAlZSACwk9%2BPQBCyjALiO3I9ME3AVBcBF5H4umoBLKABOkfvZaQJOUAA8QO7Xowm4TwHwJjWif4uwc2aoRwFwOGRLt5gp5hySjgLoLnhsZc8pp5fIFEBfMbOpdiQ554SiANqJlkGd08e1YC4F0EiQuJEyj3GB2JkCaGF6ssiUa7lk7EABFDc3R4TIeq4g21EAZc0KDpGxHdeUsRRAQVNiQkbsySVmiCfvete7Zh8Dw/zl7//gzt/xl37nf3b%2BjtzmirOGAihi5yCQAtEYABZQABXstvgt%2B/gMA5dTALnts9ot9YzMBmcpgKwsby5hTjhBAeRjSXMtM8ODFEAyW69ka7g288NtCiANS5dRzBJHCiCHTVes5dqToUIBRGeVsikD1pkCCG2jxWlZcp9ha0gBBGU1MoXBa0UBRLTFIrQCuZwJbEIBxOL%2BiyCMYgcKIBC3XURjJmtTACFYZkRmPqtSAPMNX12WFlswqPUogMnGLioriq2Z2EoUwDTup0jK6JahAOZwG0V2ZrgABTDBwJVj2TCXYU5NAezKTRP1mOq8FMB%2B3CtRmPHO6LnZB9CF5UFtA8dyt99rjx3AHkYNtOgnPtOeiALYlht/GjL2WSiADbkVojPzH5/PALZi%2Bmlu1Oj6SGA7CmAT0h8OOiA8j4DGGzKsop9KLIqY7AAGM%2Bhw35CRtg8YTgGMJP3hMTogoCfvfOc7Zx9DBV/57HvXf5Ff/O3/Xv9FIDiLJQ47gAEMNFxuyKgPWXQogLWkP1xLBwThEdAq60dQ9NOZFTSXHcByZhdWWr8E7APWUAALSX8YQgdMpACWkP4wkA6YRQFcTfrDcDpgCgVwHekPG9EB%2B/MW0BVWjpfoh0tYaLuxA7iUoYR9rFws9gGXUwAXkf6wJx2wDwVwnvSH/emAHSiAbUl/WMzy2ZoCOGPNfYTxhZXWLCKbgLMUwCnSH6bTAdtRAI%2BS/hCEDtiIAniY9IdQdMAWFMADpH8foiERHTCcArhL%2BvdxvNaiIREdMJYCeBPp38ftay0aEtEBAymAMaR/LveDQDQkYrmNogDesDgCjGMuj11oHZDI4kXnKt%2BmAL5H%2Bjdx%2BkJLh0R0wHoK4HCQ/m1ccqGlQyI6YCUFYBS6uPxCG4kOXOWDAljD7X8i16526ZCFZbhG9wLw8Ke8r3z2vSeu8iuvvX7iL25zRAzmQdBirQtA%2Bpd3%2BhIf018HFKADlun7O4Glf3mXpP8zr778/Ik/7KKnYFFfq/UOYIG2g5LOVen/4P9y%2BVcjCMvzWk13AMvWs/HKYtlD/4N9QAlW9%2BWevOMd75h9DHv76ufet%2Bwv/sJn/mvskbCFE9f3dPofne4AMxCfBX65dgVgOGpbmf7PnKgBkxCfZX4hnwFcpNtYJDUq/U//%2BcXhwm4s2Av1KoBlS9cwpTAw/c/%2BLR0Q37Jl2%2B3KNiqAbpe2leHpf/bvGqeqWl3ZRgWwjNv/%2BDZK/7NfoVVSZGTxntWlADz8qWrT9D/7dXRAcB4EndaiAKR/VTuk/9mv1icsktIBJ7QoAEraLf3Pfs0mYUE99QvA7X9JO6f/2a%2BsAyKzCXhM8QKQ/iVNSf%2BzX79DXuSlAx5UvAAWkP7BTUz/s9%2BlfF6kZmnfV7kArMZivvq5901P/7Pfy9QVU/uCli0AD3%2BKOX1B90z/s9%2BxdmSk5kHQHWULYAHpH1a09D/7fQtHRnaW%2BW01C8DyqyRm%2Bp/97oawkqpXs%2BCPg/bwp5IgD/1P87Oj05ESRzV3ANeqd11rSJH%2Bh3P7gKo3j6lZ8kfVCsBiKyNL%2Bh%2BdPiRjWUO961itABZwLxBQrvQ/0gG5WPiHYgWwYI0ZgoAypv%2BRDshlwfIvdhFLFQAF5E3/o1dee92rQWRRpwDc/heQPf2f0QFZNN8EFCmASpekrTLpf6QDCitzBYsUwAJu/0Mplv5HOiCFzlFQoQA8/MmuZPof6YAU2j4IqlAApFY4/Y90AGGlLwC3/6mVT/8jHRBfz01A%2BgIgrybpf6QDCCj3D4Nz%2B59U5B/wuSk/Ni64bpFiB8De2qb/wT6AYBIXQLeurqFz%2Bh/pgMi6fRLw9ObmZvYx7KfVv2xAf/UHP3Tin3ZI/6NXXnv9sWdBX/3c%2B37%2Bt/5z5%2BNhpbzB8uSll16afQxLnI6SB1lXc524ZH2i/7YTnweY1bn6xEviR0BXSXp5ypD%2B9534F18QQAzUJy5SFoDlkYv0f4wOKCPp9UpZANfq0%2BcBSf/TdEBMTUIjXwFYFYlI/0vogBoyXqx8BXCtJk0ekPS/3OkOyJgsBXSIjvoFwBTS/1qnT4sOYAvJCsAySEH6L6MDskt3jZIVwLU6bOKikf5rnP6VwunyJbvyAZKpAEx/fNJ/CB2QV64LlKkArlW%2BvaOR/gPpgCBqx0iaAjD0wUn/4XRAUomuTpoCuFbt3o5G%2Bm9EB0RQOEzKFgD7OP2WuvRfTwewnRwFcO2gF27sUPx4533ogOmujZQs1yVHARCQ9N%2BTDmALCQrAfAck/fenA3JJcVESFMC1PP/Z2umH/tJ/OzpgopLBUrAA2JSPfOfSAQwUvQB8/BuK9I9AB8xS76Pg6AVAHNI/Dh3AEKUKwO3/dqR/NDpgimIhE7oAzHEQ0j8mHRBf8AsRugCIQPpHpgNYo04BFNuaBSH949MBO6sUNXELwOxOJ/2z8CuFI4t8/uMWAHNJ/1z8OkkWKFIAlTZlEUj/jHTAbsoETtACMKwTSf%2B8dEBMYc980AJgFumfnV8rz%2BUqFECZ7dhcfrVLJTpgazVi58mLL744%2Bxju%2Bus//OGr/vzP/eZ/bHQkfZw%2B59I/qVdffv6xf2TVrFcgqSrsAFhJ%2Bld14tpdG16UlL4AApZqLtK/Nh2wnQLhE64ADOWeTpxtv9qlDB0QRMCzHa4A2M3p9N/zSNiaDuBBuQugwBZsFunfjQ7YQvYIyl0ALCP9e9IB3BGrAEzhDqR/ZzpgrmgnOVYBsDXpjw7gmcQFkP3p2/6kP0c6YKDUQRSoAEzepqQ/t%2BmAWUKd3kAFwHakP/fpALIWQOpt186kP4/RAUPkjaOsBcCFpD%2Bn6YDOFEBl0p9LnO4ANVBYlAIwZMNJfy53eiQsz7HinM8oBXCVvE/c9nH6rk368yAdsEbSUEpZAJzgxzuzmA7oRgGUIv1Z6fSPAdcBxYQoAFM1hPRnFB2wtSCnMUQBsJ5f7cJYOqCDfAWQ9MOWTfnIly3ogKtkjKZ8BcAd0p/t6IDaFEBu0p%2Bt6YDC5heAGVpM%2BrMPHbCFCKdufgEwnPRnOENVUrICyPgxy84sVDZitM5KF1DJCoCzXn35%2BdmHQE1Gqx4FkFi62w3qMYSpKQCApiYXQITPwQGmmB6AmXYANptAcLli6unNzc3sY7hUokOFJqzKleaewEw7AC7kbQ2GM1QlKYDcfvY3/n32IdCX8ctOAQA0pQAAmlIAAE3NLIC/%2BaMfufwPe9oIpHBVWF0Vg8PZAQA0pQBq8tIeAxmnqhRAeh6OMYXBK0ABADSlAACaUgAATSkAgKYUQFne3GAIg1SYAqjA%2BxjszMjVMK0A5v73bwBBTAzDHDsAtxtAIlki6%2BnsA2C573zp/279f/90/w/880f3OhSa%2Bc6X3vi/X/yVF%2BYdCKvk2AEAMJwCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNPb25uZl9DOelOEjoyfJcb9Y5tAMAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE3lKIC//eMfnX0IAJfKElnTCuAjn/72rG8NEMfEMMyxAwBgOAUA0JQCAGhKAQA0pQAAmno6%2BwBY7vt/%2Bfse%2B0cPvoX2ymuvb3k4FPHqy8/f/x%2B9tleSHUAjDy5suM2QtKIAanK/xkDGqSoFANDUzAK46rYiy39aDTR3VVjN3V3ZAQA0pQAAmvIaaC%2Bvvvx885dBv/jl7574px//2Ft2O5KAvALUjQIo6yOf/rYPTp45nfv3/1jzJrjNK0CFKQAquzD3T/xFTUBhPgOgrMXpP/yLQEyZCsADDS70xS9/d2Bwj/1q1JYrpp7e3NxM/PYf/tS3/u5PfuzyPz/3aElho7D%2B4pe/2/NxkEW3nQ9/6ltzDyDTDoAhar/psemteu19QO3B4EEKoLLp9xc72yGga3fAfd1GqBsFQBG7RXO3DqCwZAVw1QcG9LFzKOsAHpQuoJIVANw3JY51AAXMLwAPGVljYhDrANaIEH3zCwCAKRRAR2Ve%2BJt%2BDz79AEYpMxJcJV8BpPuYZa4I20ySMjxXyRhN%2BQoAjoLcfQc5DFggRAG40QBaCRJ6IQoAgP0pAICmUhZAxg9bosn%2B1keoJ%2B%2BhDmaB7MMQQdJQilIAQZ6IleTcsoCx2U6ccxulAADYmQIAaCprASR94gbUkzeOshYAACsFKoA4H4wAbCRU0AUqgGvl3XYF4eU/DsZgtdRBlLgAuFyomw7iMzBNxCoAY8eFPv6xt8w%2BhDeEOhgiixZxsQoAgN3kLoDUT9%2BA7LJHUO4CAGCxcAUQ7RlZbanfAAny5D3IYSyTegDSCRhu4QrgWtm3YLsJOHzEZFQuVCB80hcAnU2/%2B55%2BALBGxAJwAwIUEzPWIhbAtQpsxFhs4j242//OasTO05ubm9nHMECNfwuW%2BfjH3rL/7%2BQqnP5W0xZintWgO4APffKbsw%2BhixrvgewcxzXSv8alTyFsoAUtgGt97fPvn30ICYSdwiF2C%2BUa6f%2BY2kMySpnAKVIAcNglmmunP93ELQB3IiywaUBLfxaIHGVxC%2BBaZTZlrLRRTEt/jipFzdPZBwDjHcN61KtBop%2BqQu8AIm%2BdiG9IcEt/1ggeYqV2AF/7/PuDn%2B6YXn35%2BVdee332UWziWXxfuxson/veAV2m0vOfQ7EC4KwPffKbxSb4Qhc2QfncP839UzfRC%2BDawLIJ4LTmEc8a1948xc%2Bi0J8BALCdggXQ8xEHsKmSwZKgAOJvowDuSBFcCQqAHXgnpBWXm6McBXBtl5bcrI2S4saE/RmME%2Bp9/HuUowAAGK5sAdgEAEMUDpM0BZBlSwU0lyis0hTAAoV7G9hH7RjJVACJehXoKVdMZSqABWq391heDWzChb5c%2BQBJVgC52jUsp5E7jMQQ6U5jsgIAYJT6BVB%2BEwdsoUN05CuAdJssoIOM0ZSvABbo0OTAQE1CI2UBZGzaFLwfUp5LvJGkoZSyABZo0ueXSzqvbMEw3NEnLrIWwIKR7XNRgcUWBEXeBs1aAACslLgAbAKAsVrd/h8Oh6c3Nzezj2FX3f594SyLYo3UZy/xDuBwOHzwE9%2B49q/8/Z/%2B%2BBZHAmS3IBwWRFAouQuA4bwmWJiLyx3pC8AmYLHsNy8MYQyOGt7%2BHwoUAADLVCgAmwBgjZ63/4caBbCMDgAOvaOgSAHUaGMghTKBU6QADh4EjeNdkZJc1ge1ffhzVKcAWKDSKLOAAWiuVAHYBACXa377fyhWAMvoAGjIwj/UK4Bi/QzEUS9eqhXAMu4FoBVL/qhgASxraQNxmzdGinFBb1u22Ovd/h9KFsCh6KXaiHPVlkt/uarnqmYBLGMTAOVZ5reVLQAPgoA7PPy5o2wBHEpfNmAftWOkcgEsYxMAJVna9xUvAA%2BCgIOHP48oXgAHHbCUFwfLcCml/2PqFwBndRh07nDROTQpAJsAaMvt/wktCuCgA6Al6X9alwJYTAdAUhbvWY0KoE%2BrA4u1Coonb3/722cfw65sCR909rS88trr%2BxwJo5x%2B%2BcdIP6j8ablDAVyq/GRceGY0QWQXvvFpmB9T/szc0a4ADobjEdeeFk0Qx7Vv%2BpvkB9U%2BLQ96OvsAJvjgJ77h06H1noWOJpjFf%2BE1UMP0P/TcARx5RHjHkFJUBjtYn/vG%2BI7CJ%2BS0J29729tmH8McX//CB5b9xZ/59X8beyTRLD4zt2mCsYbc7Bvdx5Q/M4/pWwAH43KB9WWgCdaQ%2B5eznBdoXQAHQ3Mx24I9rc9983mhbifqju4FcDA6V9IE25H7y1jCiymAVYnWeYA0wRAe8qxk/a6hAA4HdxCr%2BajgWnJ/FIt3DQXwPcZoCNuC0zzkGcuyXUkBvMEwDaQJbpP7W7Bg11MAb2KkttDzAZGHPJuyVIdQAG/iA6VNdWgCub8D63QUBXCX2dpBvQdEHvLsxgodSAE8wITtJnsTyP2dWZtjKYCHmbP9ZXlA5CHPLFblcArgUaZtlpjbArk/l/W4BQVwipmbK0ITeMgTgZW4EQVwhsmLYP8mkPtxWIPbUQDnmb9QtvuowEOegKy%2BTSmA81YmjincyKhtgdwPy9LbmgK4iEGMbEgTLOCybsqi24ECuJRxTGGHMnApd2C57UMBXMFQJjK8CVy%2B3Vhou1EA11kfK6ZzZ9IkEetrZwrgamY0qcsvnAs0hZW1PwWwhEnN7sEr6KJMZE1NoQAWMq81fP0LH3AhprOaZlEAy5laWM86mui52QeQ2Pqxm/UCOwQh/eeyA1hrSIgbYrqxcCKwA1hryAjaCtCK9A9CAQygA%2BBy0j8Oj4BGMtlwggUSjR3ASLYC8BjpH9CTt771rbOPoZp/%2BLOfWP9FfvrX/nX9F4EgLIqYFMAmhoz7wcSTn7UQmUdAmxg1rKMWD0wh/YNTAFvRATQn/ePzCGhbA%2BPbMiALY5%2BFAtiDWyH6MO2JKICduCeiPEOejs8AdjJwoH0qQEDSPyM7gF2NzW7rhAhMdV4KYAL3SpRhmFNTAHO4aSI7M1yAAphm%2BKN8S4h9GN0yFMBkbqPIxcRWogDmcz9FCga1HgUQwhZvdlpdjGI%2Bq1IAgVhmRGMma1MAsWz0H3lZclzLKHagACJy28VcJrAJBRCU%2By%2BmMHitKIDQrEZ2Y9gaUgDRbfqj3yxODFhnCiAHq5ThDBUKII2tfwq0FduHWeJIASRj6bKG%2BeE2BZDPPr8QxkquxMzwIAWQlSXNJcwJJyiA3CxvHmM2OEsBVLDbbwm22uMzDFxOARSx82%2BKt/ijMQAsoABK2TkFDoJgNlecNRRAQfuHwkEu7MslZggFUNaUjDiIiS25poz15IUXXph9DGzoH//8Jyd%2B95/61X%2BZ%2BN1rcAXZjgJoYW6IHOTI9VwydqAAGpmeKUeS5TEuEDtTAO0ESZlnOseNa8FcCqCvaOlzVDuDnHNCUQDdxYykZ7Jnk9NLZAqAwyF8Tt0RM7acQ9JRALxJrhR7zBbp5sxQjwLgATXCjttEP/cpAE7RBNnJfU5QAFxEE%2BQi97mEAuA6miAyuc9VFAALaYI45D7LKADW0gSzyH1WUgAMown2IfcZRQGwCWUwltBnCwqAbWmCNeQ%2Bm1IA7EofnCbx2ZMCYBplcCT0mUUBEEWfPpD4BKEAiKtGJYh7wlIA5BOzGAQ96SgAqtmuHkQ8xSgAgKaem30AAMyhAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGjq6c3NzexjAGACOwCAphQAQFMKAKApBQDQlAIAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNKQCAphQAQFMKAKApBQDQlAIAaEoBADT1/4Q3l8nfR5AZAAAAAElFTkSuQmCC%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAAX00lEQVR4nO3dSbMtWVkG4H2LWxMLGFhFE0wU7BAd1USlsWVM6LRQaVTUX6Rghyg1JYKxgh2ikwqNUGnsfwBDRxXEcbCJW6dOs5vMlbm%2B5nlGSt17Tlbmt943V%2B6sc5685z3vOQDQz9Obm5vZxwDABM/NPgAA5lAAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNKQCAphQAQFMKAKApBQDQlAIAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBo6unNzc3sYwBgAjsAgKYUAEBTCgCgKQUA0JQCAGhKAQA09XT2AcBgf/F7P7DRV/7o7/7vRl8Zpnjy7ne/e/YxwHW2i/g11APpKADiihn011IMhKUAiKJG3F9CJRCEAmCaPol/mj5gFgXAroT%2BacqAPSkAtiXx19AHbEoBsAm5P5YmYAsKgGGE/j6UAaMoANaS%2B7NoAlZSACwk9%2BPQBCyjALiO3I9ME3AVBcBF5H4umoBLKABOkfvZaQJOUAA8QO7Xowm4TwHwJjWif4uwc2aoRwFwOGRLt5gp5hySjgLoLnhsZc8pp5fIFEBfMbOpdiQ554SiANqJlkGd08e1YC4F0EiQuJEyj3GB2JkCaGF6ssiUa7lk7EABFDc3R4TIeq4g21EAZc0KDpGxHdeUsRRAQVNiQkbsySVmiCfvete7Zh8Dw/zl7//gzt/xl37nf3b%2BjtzmirOGAihi5yCQAtEYABZQABXstvgt%2B/gMA5dTALnts9ot9YzMBmcpgKwsby5hTjhBAeRjSXMtM8ODFEAyW69ka7g288NtCiANS5dRzBJHCiCHTVes5dqToUIBRGeVsikD1pkCCG2jxWlZcp9ha0gBBGU1MoXBa0UBRLTFIrQCuZwJbEIBxOL%2BiyCMYgcKIBC3XURjJmtTACFYZkRmPqtSAPMNX12WFlswqPUogMnGLioriq2Z2EoUwDTup0jK6JahAOZwG0V2ZrgABTDBwJVj2TCXYU5NAezKTRP1mOq8FMB%2B3CtRmPHO6LnZB9CF5UFtA8dyt99rjx3AHkYNtOgnPtOeiALYlht/GjL2WSiADbkVojPzH5/PALZi%2Bmlu1Oj6SGA7CmAT0h8OOiA8j4DGGzKsop9KLIqY7AAGM%2Bhw35CRtg8YTgGMJP3hMTogoCfvfOc7Zx9DBV/57HvXf5Ff/O3/Xv9FIDiLJQ47gAEMNFxuyKgPWXQogLWkP1xLBwThEdAq60dQ9NOZFTSXHcByZhdWWr8E7APWUAALSX8YQgdMpACWkP4wkA6YRQFcTfrDcDpgCgVwHekPG9EB%2B/MW0BVWjpfoh0tYaLuxA7iUoYR9rFws9gGXUwAXkf6wJx2wDwVwnvSH/emAHSiAbUl/WMzy2ZoCOGPNfYTxhZXWLCKbgLMUwCnSH6bTAdtRAI%2BS/hCEDtiIAniY9IdQdMAWFMADpH8foiERHTCcArhL%2BvdxvNaiIREdMJYCeBPp38ftay0aEtEBAymAMaR/LveDQDQkYrmNogDesDgCjGMuj11oHZDI4kXnKt%2BmAL5H%2Bjdx%2BkJLh0R0wHoK4HCQ/m1ccqGlQyI6YCUFYBS6uPxCG4kOXOWDAljD7X8i16526ZCFZbhG9wLw8Ke8r3z2vSeu8iuvvX7iL25zRAzmQdBirQtA%2Bpd3%2BhIf018HFKADlun7O4Glf3mXpP8zr778/Ik/7KKnYFFfq/UOYIG2g5LOVen/4P9y%2BVcjCMvzWk13AMvWs/HKYtlD/4N9QAlW9%2BWevOMd75h9DHv76ufet%2Bwv/sJn/mvskbCFE9f3dPofne4AMxCfBX65dgVgOGpbmf7PnKgBkxCfZX4hnwFcpNtYJDUq/U//%2BcXhwm4s2Av1KoBlS9cwpTAw/c/%2BLR0Q37Jl2%2B3KNiqAbpe2leHpf/bvGqeqWl3ZRgWwjNv/%2BDZK/7NfoVVSZGTxntWlADz8qWrT9D/7dXRAcB4EndaiAKR/VTuk/9mv1icsktIBJ7QoAEraLf3Pfs0mYUE99QvA7X9JO6f/2a%2BsAyKzCXhM8QKQ/iVNSf%2BzX79DXuSlAx5UvAAWkP7BTUz/s9%2BlfF6kZmnfV7kArMZivvq5901P/7Pfy9QVU/uCli0AD3%2BKOX1B90z/s9%2BxdmSk5kHQHWULYAHpH1a09D/7fQtHRnaW%2BW01C8DyqyRm%2Bp/97oawkqpXs%2BCPg/bwp5IgD/1P87Oj05ESRzV3ANeqd11rSJH%2Bh3P7gKo3j6lZ8kfVCsBiKyNL%2Bh%2BdPiRjWUO961itABZwLxBQrvQ/0gG5WPiHYgWwYI0ZgoAypv%2BRDshlwfIvdhFLFQAF5E3/o1dee92rQWRRpwDc/heQPf2f0QFZNN8EFCmASpekrTLpf6QDCitzBYsUwAJu/0Mplv5HOiCFzlFQoQA8/MmuZPof6YAU2j4IqlAApFY4/Y90AGGlLwC3/6mVT/8jHRBfz01A%2BgIgrybpf6QDCCj3D4Nz%2B59U5B/wuSk/Ni64bpFiB8De2qb/wT6AYBIXQLeurqFz%2Bh/pgMi6fRLw9ObmZvYx7KfVv2xAf/UHP3Tin3ZI/6NXXnv9sWdBX/3c%2B37%2Bt/5z5%2BNhpbzB8uSll16afQxLnI6SB1lXc524ZH2i/7YTnweY1bn6xEviR0BXSXp5ypD%2B9534F18QQAzUJy5SFoDlkYv0f4wOKCPp9UpZANfq0%2BcBSf/TdEBMTUIjXwFYFYlI/0vogBoyXqx8BXCtJk0ekPS/3OkOyJgsBXSIjvoFwBTS/1qnT4sOYAvJCsAySEH6L6MDskt3jZIVwLU6bOKikf5rnP6VwunyJbvyAZKpAEx/fNJ/CB2QV64LlKkArlW%2BvaOR/gPpgCBqx0iaAjD0wUn/4XRAUomuTpoCuFbt3o5G%2Bm9EB0RQOEzKFgD7OP2WuvRfTwewnRwFcO2gF27sUPx4533ogOmujZQs1yVHARCQ9N%2BTDmALCQrAfAck/fenA3JJcVESFMC1PP/Z2umH/tJ/OzpgopLBUrAA2JSPfOfSAQwUvQB8/BuK9I9AB8xS76Pg6AVAHNI/Dh3AEKUKwO3/dqR/NDpgimIhE7oAzHEQ0j8mHRBf8AsRugCIQPpHpgNYo04BFNuaBSH949MBO6sUNXELwOxOJ/2z8CuFI4t8/uMWAHNJ/1z8OkkWKFIAlTZlEUj/jHTAbsoETtACMKwTSf%2B8dEBMYc980AJgFumfnV8rz%2BUqFECZ7dhcfrVLJTpgazVi58mLL744%2Bxju%2Bus//OGr/vzP/eZ/bHQkfZw%2B59I/qVdffv6xf2TVrFcgqSrsAFhJ%2Bld14tpdG16UlL4AApZqLtK/Nh2wnQLhE64ADOWeTpxtv9qlDB0QRMCzHa4A2M3p9N/zSNiaDuBBuQugwBZsFunfjQ7YQvYIyl0ALCP9e9IB3BGrAEzhDqR/ZzpgrmgnOVYBsDXpjw7gmcQFkP3p2/6kP0c6YKDUQRSoAEzepqQ/t%2BmAWUKd3kAFwHakP/fpALIWQOpt186kP4/RAUPkjaOsBcCFpD%2Bn6YDOFEBl0p9LnO4ANVBYlAIwZMNJfy53eiQsz7HinM8oBXCVvE/c9nH6rk368yAdsEbSUEpZAJzgxzuzmA7oRgGUIv1Z6fSPAdcBxYQoAFM1hPRnFB2wtSCnMUQBsJ5f7cJYOqCDfAWQ9MOWTfnIly3ogKtkjKZ8BcAd0p/t6IDaFEBu0p%2Bt6YDC5heAGVpM%2BrMPHbCFCKdufgEwnPRnOENVUrICyPgxy84sVDZitM5KF1DJCoCzXn35%2BdmHQE1Gqx4FkFi62w3qMYSpKQCApiYXQITPwQGmmB6AmXYANptAcLli6unNzc3sY7hUokOFJqzKleaewEw7AC7kbQ2GM1QlKYDcfvY3/n32IdCX8ctOAQA0pQAAmlIAAE3NLIC/%2BaMfufwPe9oIpHBVWF0Vg8PZAQA0pQBq8tIeAxmnqhRAeh6OMYXBK0ABADSlAACaUgAATSkAgKYUQFne3GAIg1SYAqjA%2BxjszMjVMK0A5v73bwBBTAzDHDsAtxtAIlki6%2BnsA2C573zp/279f/90/w/880f3OhSa%2Bc6X3vi/X/yVF%2BYdCKvk2AEAMJwCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNPb25uZl9DOelOEjoyfJcb9Y5tAMAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE3lKIC//eMfnX0IAJfKElnTCuAjn/72rG8NEMfEMMyxAwBgOAUA0JQCAGhKAQA0pQAAmno6%2BwBY7vt/%2Bfse%2B0cPvoX2ymuvb3k4FPHqy8/f/x%2B9tleSHUAjDy5suM2QtKIAanK/xkDGqSoFANDUzAK46rYiy39aDTR3VVjN3V3ZAQA0pQAAmvIaaC%2Bvvvx885dBv/jl7574px//2Ft2O5KAvALUjQIo6yOf/rYPTp45nfv3/1jzJrjNK0CFKQAquzD3T/xFTUBhPgOgrMXpP/yLQEyZCsADDS70xS9/d2Bwj/1q1JYrpp7e3NxM/PYf/tS3/u5PfuzyPz/3aElho7D%2B4pe/2/NxkEW3nQ9/6ltzDyDTDoAhar/psemteu19QO3B4EEKoLLp9xc72yGga3fAfd1GqBsFQBG7RXO3DqCwZAVw1QcG9LFzKOsAHpQuoJIVANw3JY51AAXMLwAPGVljYhDrANaIEH3zCwCAKRRAR2Ve%2BJt%2BDz79AEYpMxJcJV8BpPuYZa4I20ySMjxXyRhN%2BQoAjoLcfQc5DFggRAG40QBaCRJ6IQoAgP0pAICmUhZAxg9bosn%2B1keoJ%2B%2BhDmaB7MMQQdJQilIAQZ6IleTcsoCx2U6ccxulAADYmQIAaCprASR94gbUkzeOshYAACsFKoA4H4wAbCRU0AUqgGvl3XYF4eU/DsZgtdRBlLgAuFyomw7iMzBNxCoAY8eFPv6xt8w%2BhDeEOhgiixZxsQoAgN3kLoDUT9%2BA7LJHUO4CAGCxcAUQ7RlZbanfAAny5D3IYSyTegDSCRhu4QrgWtm3YLsJOHzEZFQuVCB80hcAnU2/%2B55%2BALBGxAJwAwIUEzPWIhbAtQpsxFhs4j242//OasTO05ubm9nHMECNfwuW%2BfjH3rL/7%2BQqnP5W0xZintWgO4APffKbsw%2BhixrvgewcxzXSv8alTyFsoAUtgGt97fPvn30ICYSdwiF2C%2BUa6f%2BY2kMySpnAKVIAcNglmmunP93ELQB3IiywaUBLfxaIHGVxC%2BBaZTZlrLRRTEt/jipFzdPZBwDjHcN61KtBop%2BqQu8AIm%2BdiG9IcEt/1ggeYqV2AF/7/PuDn%2B6YXn35%2BVdee332UWziWXxfuxson/veAV2m0vOfQ7EC4KwPffKbxSb4Qhc2QfncP839UzfRC%2BDawLIJ4LTmEc8a1948xc%2Bi0J8BALCdggXQ8xEHsKmSwZKgAOJvowDuSBFcCQqAHXgnpBWXm6McBXBtl5bcrI2S4saE/RmME%2Bp9/HuUowAAGK5sAdgEAEMUDpM0BZBlSwU0lyis0hTAAoV7G9hH7RjJVACJehXoKVdMZSqABWq391heDWzChb5c%2BQBJVgC52jUsp5E7jMQQ6U5jsgIAYJT6BVB%2BEwdsoUN05CuAdJssoIOM0ZSvABbo0OTAQE1CI2UBZGzaFLwfUp5LvJGkoZSyABZo0ueXSzqvbMEw3NEnLrIWwIKR7XNRgcUWBEXeBs1aAACslLgAbAKAsVrd/h8Oh6c3Nzezj2FX3f594SyLYo3UZy/xDuBwOHzwE9%2B49q/8/Z/%2B%2BBZHAmS3IBwWRFAouQuA4bwmWJiLyx3pC8AmYLHsNy8MYQyOGt7%2BHwoUAADLVCgAmwBgjZ63/4caBbCMDgAOvaOgSAHUaGMghTKBU6QADh4EjeNdkZJc1ge1ffhzVKcAWKDSKLOAAWiuVAHYBACXa377fyhWAMvoAGjIwj/UK4Bi/QzEUS9eqhXAMu4FoBVL/qhgASxraQNxmzdGinFBb1u22Ovd/h9KFsCh6KXaiHPVlkt/uarnqmYBLGMTAOVZ5reVLQAPgoA7PPy5o2wBHEpfNmAftWOkcgEsYxMAJVna9xUvAA%2BCgIOHP48oXgAHHbCUFwfLcCml/2PqFwBndRh07nDROTQpAJsAaMvt/wktCuCgA6Al6X9alwJYTAdAUhbvWY0KoE%2BrA4u1Coonb3/722cfw65sCR909rS88trr%2BxwJo5x%2B%2BcdIP6j8ablDAVyq/GRceGY0QWQXvvFpmB9T/szc0a4ADobjEdeeFk0Qx7Vv%2BpvkB9U%2BLQ96OvsAJvjgJ77h06H1noWOJpjFf%2BE1UMP0P/TcARx5RHjHkFJUBjtYn/vG%2BI7CJ%2BS0J29729tmH8McX//CB5b9xZ/59X8beyTRLD4zt2mCsYbc7Bvdx5Q/M4/pWwAH43KB9WWgCdaQ%2B5eznBdoXQAHQ3Mx24I9rc9983mhbifqju4FcDA6V9IE25H7y1jCiymAVYnWeYA0wRAe8qxk/a6hAA4HdxCr%2BajgWnJ/FIt3DQXwPcZoCNuC0zzkGcuyXUkBvMEwDaQJbpP7W7Bg11MAb2KkttDzAZGHPJuyVIdQAG/iA6VNdWgCub8D63QUBXCX2dpBvQdEHvLsxgodSAE8wITtJnsTyP2dWZtjKYCHmbP9ZXlA5CHPLFblcArgUaZtlpjbArk/l/W4BQVwipmbK0ITeMgTgZW4EQVwhsmLYP8mkPtxWIPbUQDnmb9QtvuowEOegKy%2BTSmA81YmjincyKhtgdwPy9LbmgK4iEGMbEgTLOCybsqi24ECuJRxTGGHMnApd2C57UMBXMFQJjK8CVy%2B3Vhou1EA11kfK6ZzZ9IkEetrZwrgamY0qcsvnAs0hZW1PwWwhEnN7sEr6KJMZE1NoQAWMq81fP0LH3AhprOaZlEAy5laWM86mui52QeQ2Pqxm/UCOwQh/eeyA1hrSIgbYrqxcCKwA1hryAjaCtCK9A9CAQygA%2BBy0j8Oj4BGMtlwggUSjR3ASLYC8BjpH9CTt771rbOPoZp/%2BLOfWP9FfvrX/nX9F4EgLIqYFMAmhoz7wcSTn7UQmUdAmxg1rKMWD0wh/YNTAFvRATQn/ePzCGhbA%2BPbMiALY5%2BFAtiDWyH6MO2JKICduCeiPEOejs8AdjJwoH0qQEDSPyM7gF2NzW7rhAhMdV4KYAL3SpRhmFNTAHO4aSI7M1yAAphm%2BKN8S4h9GN0yFMBkbqPIxcRWogDmcz9FCga1HgUQwhZvdlpdjGI%2Bq1IAgVhmRGMma1MAsWz0H3lZclzLKHagACJy28VcJrAJBRCU%2By%2BmMHitKIDQrEZ2Y9gaUgDRbfqj3yxODFhnCiAHq5ThDBUKII2tfwq0FduHWeJIASRj6bKG%2BeE2BZDPPr8QxkquxMzwIAWQlSXNJcwJJyiA3CxvHmM2OEsBVLDbbwm22uMzDFxOARSx82%2BKt/ijMQAsoABK2TkFDoJgNlecNRRAQfuHwkEu7MslZggFUNaUjDiIiS25poz15IUXXph9DGzoH//8Jyd%2B95/61X%2BZ%2BN1rcAXZjgJoYW6IHOTI9VwydqAAGpmeKUeS5TEuEDtTAO0ESZlnOseNa8FcCqCvaOlzVDuDnHNCUQDdxYykZ7Jnk9NLZAqAwyF8Tt0RM7acQ9JRALxJrhR7zBbp5sxQjwLgATXCjttEP/cpAE7RBNnJfU5QAFxEE%2BQi97mEAuA6miAyuc9VFAALaYI45D7LKADW0gSzyH1WUgAMown2IfcZRQGwCWUwltBnCwqAbWmCNeQ%2Bm1IA7EofnCbx2ZMCYBplcCT0mUUBEEWfPpD4BKEAiKtGJYh7wlIA5BOzGAQ96SgAqtmuHkQ8xSgAgKaem30AAMyhAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGjq6c3NzexjAGACOwCAphQAQFMKAKApBQDQlAIAaEoBADSlAACaUgAATSkAgKYUAEBTCgCgKQUA0JQCAGhKAQA0pQAAmlIAAE0pAICmFABAUwoAoCkFANCUAgBoSgEANKUAAJpSAABNKQCAphQAQFMKAKApBQDQlAIAaEoBADT1/4Q3l8nfR5AZAAAAAElFTkSuQmCC%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22maskable%22%7D%5D%7D">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BTP Vigie">
+<style>
+/* Aucune police externe : uniquement des polices système, pour un
+   fonctionnement 100% hors-ligne sans la moindre requête réseau. */
+
+:root {
+  --or: #D4AF37;
+  --or-clair: #E8C860;
+  --jaune: #FFC107;
+  --jaune-fonce: #C88A00;
+  --vert: #2E7D32;
+  --vert-clair: #4CAF50;
+  --rouge: #D32F2F;
+  --rouge-fonce: #A31515;
+  --fond: #121212;
+  --fond-2: #1A1A1A;
+  --carte: #1E1E1E;
+  --carte-2: #262421;
+  --bordure: #35322B;
+  --texte: #F2EFE7;
+  --texte-att: #B8B3A4;
+  --ombre: rgba(0,0,0,.45);
+  --radius: 10px;
+  --font-affiche: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-corps: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-data: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--font-corps);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-image:
+    linear-gradient(180deg, rgba(212,175,55,.06), transparent 260px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 34px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 34px);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--or); color: #1a1a1a; }
+
+/* Hachures de sécurité (élément signature réutilisé en filet, jamais en pleine surface) */
+.filet-securite {
+  height: 6px;
+  background: repeating-linear-gradient(135deg, var(--jaune) 0 12px, #1a1a1a 12px 24px);
+}
+
+/* ---------- Écran de chargement ---------- */
+#ecran-chargement {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--fond);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 14px;
+}
+#ecran-chargement .logo-load {
+  width: 56px; height: 56px;
+  border: 3px solid var(--bordure);
+  border-top-color: var(--or);
+  border-radius: 50%;
+  animation: tourner 0.9s linear infinite;
+}
+@keyframes tourner { to { transform: rotate(360deg); } }
+
+/* ---------- Layout général ---------- */
+#app { display: none; min-height: 100vh; flex-direction: column; }
+#app.actif { display: flex; }
+
+.entete {
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(180deg, #1c1a15, #161512 90%);
+  border-bottom: 3px solid var(--or);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 4px 14px var(--ombre);
+}
+.logo-marque { display: flex; align-items: center; gap: 10px; }
+.logo-marque .badge-logo {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: conic-gradient(from 180deg, var(--vert), var(--jaune), var(--rouge), var(--vert));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-affiche); font-weight: 800; color: #12100c; font-size: 15px;
+  border: 2px solid var(--or);
+}
+.logo-marque .nom-app { font-family: var(--font-affiche); font-weight: 700; font-size: 22px; letter-spacing: .5px; }
+.logo-marque .nom-app span { color: var(--or); }
+.logo-marque .sous-titre { font-size: 10px; color: var(--texte-att); text-transform: uppercase; letter-spacing: 1.5px; }
+
+.btn-icone {
+  background: transparent; border: 1px solid var(--bordure); color: var(--texte);
+  width: 38px; height: 38px; border-radius: 8px; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.conteneur { max-width: 720px; margin: 0 auto; width: 100%; padding: 16px; flex: 1; }
+
+/* ---------- Navigation basse (mobile-first) ---------- */
+.nav-bas {
+  position: sticky; bottom: 0; z-index: 50;
+  background: #17150f;
+  border-top: 1px solid var(--bordure);
+  display: flex; justify-content: space-around;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.nav-item {
+  background: none; border: none; color: var(--texte-att);
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-size: 10px; padding: 6px 10px; border-radius: 8px; flex: 1;
+  text-transform: uppercase; letter-spacing: .5px; font-weight: 600;
+}
+.nav-item .ic { font-size: 19px; }
+.nav-item.actif { color: var(--or); background: rgba(212,175,55,.08); }
+
+/* ---------- Cartes ---------- */
+.carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px var(--ombre);
+}
+.carte-titre {
+  font-family: var(--font-affiche); font-size: 20px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+}
+.carte-sous { color: var(--texte-att); font-size: 13px; margin-bottom: 12px; }
+
+/* ---------- Formulaires ---------- */
+.champ { margin-bottom: 14px; }
+.champ label {
+  display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--texte-att); margin-bottom: 6px; font-weight: 600;
+}
+.champ input, .champ select, .champ textarea {
+  width: 100%; background: #14130f; border: 1px solid var(--bordure);
+  color: var(--texte); padding: 11px 12px; border-radius: 8px; font-size: 15px;
+  transition: border-color .15s;
+}
+.champ input:focus, .champ select:focus, .champ textarea:focus {
+  outline: none; border-color: var(--or);
+}
+.champ textarea { resize: vertical; min-height: 80px; }
+.champ-aide { font-size: 11px; color: var(--texte-att); margin-top: 4px; }
+.champ-erreur { font-size: 12px; color: #ff6b6b; margin-top: 4px; display: none; }
+
+.ligne-champs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .ligne-champs { grid-template-columns: 1fr; } }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: 8px; padding: 12px 18px; font-weight: 700; font-size: 14px;
+  width: 100%; letter-spacing: .3px;
+}
+.btn-or { background: linear-gradient(180deg, var(--or-clair), var(--or)); color: #1a1608; }
+.btn-vert { background: linear-gradient(180deg, var(--vert-clair), var(--vert)); color: #fff; }
+.btn-rouge { background: linear-gradient(180deg, #e05555, var(--rouge)); color: #fff; }
+.btn-contour { background: transparent; border: 1px solid var(--bordure); color: var(--texte); }
+.btn-petit { width: auto; padding: 8px 14px; font-size: 13px; }
+.btn:disabled { opacity: .5; }
+.groupe-btn { display: flex; gap: 10px; flex-wrap: wrap; }
+.groupe-btn .btn { width: auto; flex: 1; min-width: 120px; }
+
+/* ---------- Badges / statuts ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+  padding: 4px 9px; border-radius: 20px;
+}
+.badge-vert { background: rgba(76,175,80,.15); color: var(--vert-clair); border: 1px solid rgba(76,175,80,.4); }
+.badge-jaune { background: rgba(255,193,7,.15); color: var(--jaune); border: 1px solid rgba(255,193,7,.4); }
+.badge-rouge { background: rgba(211,47,47,.15); color: #ff6b6b; border: 1px solid rgba(211,47,47,.4); }
+.badge-or { background: rgba(212,175,55,.15); color: var(--or); border: 1px solid rgba(212,175,55,.4); }
+
+/* ---------- Auth ---------- */
+.ecran-auth {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px 18px;
+}
+.auth-logo { text-align: center; margin-bottom: 26px; }
+.auth-logo .badge-logo-grand {
+  width: 68px; height: 68px; border-radius: 16px; margin: 0 auto 12px;
+  background: conic-gradient(from 180deg, var(--vert), var(--jaune), var(--rouge), var(--vert));
+  border: 3px solid var(--or);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-affiche); font-weight: 800; font-size: 26px; color: #12100c;
+  box-shadow: 0 6px 22px rgba(212,175,55,.25);
+}
+.auth-logo h1 { font-family: var(--font-affiche); font-size: 34px; font-weight: 800; letter-spacing: .5px; }
+.auth-logo h1 span { color: var(--or); }
+.auth-logo p { color: var(--texte-att); font-size: 13px; text-transform: uppercase; letter-spacing: 1.6px; margin-top: 4px; }
+
+.carte-auth { width: 100%; max-width: 380px; }
+
+.onglets-role { display: flex; background: #14130f; border: 1px solid var(--bordure); border-radius: 8px; padding: 3px; margin-bottom: 16px; }
+.onglet-role { flex: 1; text-align: center; padding: 9px; font-size: 13px; font-weight: 700; border-radius: 6px; color: var(--texte-att); background: none; border: none; text-transform: uppercase; letter-spacing: .4px; }
+.onglet-role.actif { background: var(--or); color: #1a1608; }
+
+.lien-switch { text-align: center; margin-top: 16px; font-size: 13px; color: var(--texte-att); }
+.lien-switch b { color: var(--or); cursor: pointer; }
+
+/* ---------- Liste chantiers ---------- */
+.item-chantier {
+  background: var(--carte); border: 1px solid var(--bordure); border-left: 4px solid var(--or);
+  border-radius: 8px; padding: 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;
+}
+.item-chantier .titre-ligne { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.item-chantier h3 { font-family: var(--font-affiche); font-size: 19px; font-weight: 700; }
+.item-chantier .meta { font-size: 12px; color: var(--texte-att); display: flex; gap: 12px; flex-wrap: wrap; }
+.item-chantier .meta span { display: flex; align-items: center; gap: 4px; }
+
+.barre-progres { height: 8px; background: #14130f; border-radius: 4px; overflow: hidden; border: 1px solid var(--bordure); }
+.barre-progres > div { height: 100%; background: linear-gradient(90deg, var(--vert), var(--jaune)); border-radius: 4px; transition: width .3s; }
+
+/* ---------- Checklist qualité ---------- */
+.item-controle {
+  background: #14130f; border: 1px solid var(--bordure); border-radius: 8px;
+  padding: 12px; margin-bottom: 8px;
+}
+.item-controle .ligne-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.item-controle .libelle { font-size: 14px; font-weight: 600; flex: 1; }
+.trio-etat { display: flex; gap: 6px; }
+.btn-etat {
+  width: 34px; height: 34px; border-radius: 7px; border: 1px solid var(--bordure);
+  background: #1c1a15; font-size: 15px; color: var(--texte-att); display: flex; align-items: center; justify-content: center;
+}
+.btn-etat.conforme.actif { background: var(--vert); border-color: var(--vert); color: #fff; }
+.btn-etat.na.actif { background: #555; border-color: #555; color: #fff; }
+.btn-etat.nonconforme.actif { background: var(--rouge); border-color: var(--rouge); color: #fff; }
+
+/* ---------- Photos ---------- */
+.zone-photos { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.miniature-photo { position: relative; width: 64px; height: 64px; border-radius: 6px; overflow: hidden; border: 1px solid var(--bordure); }
+.miniature-photo img { width: 100%; height: 100%; object-fit: cover; }
+.miniature-photo .suppr-photo {
+  position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,.7); color: #fff;
+  width: 18px; height: 18px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; border: none;
+}
+.btn-ajout-photo {
+  width: 64px; height: 64px; border-radius: 6px; border: 1px dashed var(--bordure);
+  background: transparent; color: var(--texte-att); font-size: 20px; display: flex; align-items: center; justify-content: center;
+}
+
+/* ---------- Etat vide ---------- */
+.etat-vide { text-align: center; padding: 40px 20px; color: var(--texte-att); }
+.etat-vide .ic-vide { font-size: 36px; margin-bottom: 10px; opacity: .5; }
+.etat-vide p { font-size: 14px; margin-bottom: 14px; }
+
+/* ---------- Modale ---------- */
+.superposition { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
+.superposition.actif { display: flex; }
+.feuille-modale {
+  background: var(--fond-2); width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto;
+  border-radius: 16px 16px 0 0; padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+  border-top: 3px solid var(--or); animation: monter .2s ease-out;
+}
+@keyframes monter { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.entete-modale { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.entete-modale h2 { font-family: var(--font-affiche); font-size: 22px; font-weight: 700; }
+
+/* ---------- Bannière installation PWA ---------- */
+.bandeau-install {
+  display: none; align-items: center; gap: 12px; background: linear-gradient(90deg, #1c1a15, #201c12);
+  border: 1px solid var(--or); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+}
+.bandeau-install.visible { display: flex; }
+.bandeau-install .txt-install { flex: 1; }
+.bandeau-install .txt-install strong { font-family: var(--font-affiche); font-size: 16px; display: block; }
+.bandeau-install .txt-install span { font-size: 12px; color: var(--texte-att); }
+
+/* ---- Bannière abonnement ---- */
+.bandeau-abonnement {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,193,7,.4);
+  background: rgba(255,193,7,.10);
+}
+.bandeau-abonnement.statut-actif { border-color: rgba(76,175,80,.4); background: rgba(76,175,80,.10); }
+.bandeau-abonnement.statut-expire { border-color: rgba(211,47,47,.45); background: rgba(211,47,47,.12); }
+.bandeau-abonnement .txt-abo { flex: 1; }
+.bandeau-abonnement .txt-abo strong { font-family: var(--font-affiche); font-size: 14px; display: block; }
+.bandeau-abonnement .txt-abo span { font-size: 12px; color: var(--texte-att); }
+.bandeau-abonnement .btn { padding: 8px 14px; font-size: 12px; background: transparent; border: 1px solid var(--bordure); color: var(--texte); }
+
+/* ---- Encart paiement (Mobile Money) ---- */
+.encart-paiement {
+  border: 1px dashed var(--or);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(212,175,55,.06);
+  margin-top: 10px;
+}
+.encart-paiement-ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.encart-paiement-ligne strong { color: var(--or); }
+
+/* ---- Pied de page développeur ---- */
+.pied-dev {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--texte-att);
+  line-height: 1.6;
+  opacity: .8;
+}
+.pied-dev strong { color: var(--or); }
+
+/* ---------- Alerte / non-conformité ---------- */
+.alerte {
+  border-radius: 8px; padding: 12px 14px; font-size: 13px; margin-bottom: 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.alerte-rouge { background: rgba(211,47,47,.12); border: 1px solid rgba(211,47,47,.4); color: #ff9a9a; }
+.alerte-jaune { background: rgba(255,193,7,.1); border: 1px solid rgba(255,193,7,.35); color: var(--jaune); }
+.alerte-vert { background: rgba(76,175,80,.1); border: 1px solid rgba(76,175,80,.35); color: var(--vert-clair); }
+
+/* ---------- Stats dashboard ---------- */
+.grille-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat-carte { background: var(--carte); border: 1px solid var(--bordure); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.stat-carte .val { font-family: var(--font-affiche); font-size: 26px; font-weight: 800; }
+.stat-carte .lbl { font-size: 10px; color: var(--texte-att); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+.stat-carte.or .val { color: var(--or); }
+.stat-carte.vert .val { color: var(--vert-clair); }
+.stat-carte.rouge .val { color: #ff6b6b; }
+
+/* ---------- Toast ---------- */
+#toast-conteneur { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 999; display: flex; flex-direction: column; gap: 8px; width: calc(100% - 32px); max-width: 420px; }
+.toast {
+  background: var(--carte-2); border: 1px solid var(--or); border-radius: 8px; padding: 10px 14px;
+  font-size: 13px; box-shadow: 0 6px 18px var(--ombre); animation: apparaitre .2s ease-out;
+}
+@keyframes apparaitre { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.texte-att { color: var(--texte-att); }
+.mono { font-family: var(--font-data); }
+.mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mb-0 { margin-bottom: 0; }
+.hidden { display: none !important; }
+
+</style>
+</head>
+<body>
+
+<!-- ============ ÉCRAN DE CHARGEMENT ============ -->
+<div id="ecran-chargement">
+  <div class="logo-load"></div>
+  <div style="font-family:var(--font-affiche);font-size:15px;letter-spacing:1px;color:var(--texte-att);">BTP<span style="color:var(--or)"> VIGIE</span></div>
+</div>
+
+<div id="toast-conteneur"></div>
+
+<!-- ============ ÉCRAN AUTHENTIFICATION ============ -->
+<div id="ecran-auth" class="ecran-auth hidden">
+  <div class="auth-logo">
+    <div class="badge-logo-grand">BV</div>
+    <h1>BTP<span> VIGIE</span></h1>
+    <p>Suivi de chantier &amp; contrôle qualité</p>
+  </div>
+
+  <div class="carte carte-auth">
+
+    <!-- Connexion -->
+    <div id="vue-connexion">
+      <div class="carte-titre">Connexion</div>
+      <div class="carte-sous">Entrez vos identifiants pour accéder à votre espace</div>
+
+      <div class="onglets-role" id="onglets-role-connexion">
+        <button type="button" class="onglet-role actif" data-role="responsable">Responsable</button>
+        <button type="button" class="onglet-role" data-role="entreprise">Entreprise</button>
+      </div>
+
+      <form id="form-connexion" autocomplete="on">
+        <div class="champ">
+          <label for="co-email">Adresse e-mail</label>
+          <input type="email" id="co-email" autocomplete="username" required placeholder="vous@exemple.com">
+        </div>
+        <div class="champ">
+          <label for="co-mdp">Mot de passe</label>
+          <input type="password" id="co-mdp" autocomplete="current-password" required placeholder="••••••••">
+          <div class="champ-erreur" id="err-connexion"></div>
+        </div>
+        <div class="champ" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="co-souvenir" checked style="width:auto;">
+          <label for="co-souvenir" style="margin:0;text-transform:none;font-weight:400;color:var(--texte);">Rester connecté sur cet appareil</label>
+        </div>
+        <button type="submit" class="btn btn-or">Se connecter</button>
+      </form>
+      <div class="lien-switch">Pas encore de compte ? <b id="lien-vers-inscription">Créer un compte</b></div>
+    </div>
+
+    <!-- Inscription -->
+    <div id="vue-inscription" class="hidden">
+      <div class="carte-titre">Créer un compte</div>
+      <div class="carte-sous">Choisissez votre profil pour démarrer</div>
+
+      <div class="onglets-role" id="onglets-role-inscription">
+        <button type="button" class="onglet-role actif" data-role="responsable">Responsable</button>
+        <button type="button" class="onglet-role" data-role="entreprise">Entreprise</button>
+      </div>
+
+      <form id="form-inscription" autocomplete="on">
+        <div class="champ">
+          <label for="in-nom" id="lbl-in-nom">Nom complet</label>
+          <input type="text" id="in-nom" required placeholder="Ex : Kofi AGOSSOU">
+        </div>
+        <div class="champ hidden" id="champ-nom-entreprise">
+          <label for="in-nom-entreprise">Nom de l'entreprise</label>
+          <input type="text" id="in-nom-entreprise" placeholder="Ex : BTP Sarl">
+        </div>
+        <div class="champ">
+          <label for="in-email">Adresse e-mail</label>
+          <input type="email" id="in-email" autocomplete="username" required placeholder="vous@exemple.com">
+        </div>
+        <div class="champ">
+          <label for="in-tel">Téléphone</label>
+          <input type="tel" id="in-tel" placeholder="+229 XX XX XX XX">
+        </div>
+        <div class="champ">
+          <label for="in-mdp">Mot de passe (8 caractères min.)</label>
+          <input type="password" id="in-mdp" autocomplete="new-password" required minlength="8" placeholder="••••••••">
+        </div>
+        <div class="champ">
+          <label for="in-mdp2">Confirmer le mot de passe</label>
+          <input type="password" id="in-mdp2" autocomplete="new-password" required minlength="8" placeholder="••••••••">
+          <div class="champ-erreur" id="err-inscription"></div>
+        </div>
+        <button type="submit" class="btn btn-vert">Créer mon compte</button>
+      </form>
+      <div class="lien-switch">Déjà inscrit ? <b id="lien-vers-connexion">Se connecter</b></div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:22px;font-size:11px;color:var(--texte-att);max-width:340px;">
+    🔒 Vos données restent sur votre téléphone. Aucun serveur, aucune connexion internet requise.
+  </div>
+  <div class="pied-dev">
+    <div><strong>btpvigie.bj</strong></div>
+    <div>Développé par DESSOUASSI Anaël David (Anavid51)</div>
+    <div>dessouassianael51@gmail.com</div>
+  </div>
+</div>
+
+<!-- ============ APPLICATION ============ -->
+<div id="app">
+  <header class="entete">
+    <div class="logo-marque">
+      <div class="badge-logo">BV</div>
+      <div>
+        <div class="nom-app">BTP<span> VIGIE</span></div>
+        <div class="sous-titre" id="etiquette-espace">Espace responsable</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-icone" id="btn-notifications" title="Alertes">🔔</button>
+      <button class="btn-icone" id="btn-deconnexion" title="Déconnexion">⏻</button>
+    </div>
+  </header>
+
+  <div class="conteneur">
+
+    <div class="bandeau-install" id="bandeau-install">
+      <div style="font-size:22px;">📲</div>
+      <div class="txt-install">
+        <strong>Installer BTP Vigie</strong>
+        <span>Accédez à l'app depuis votre écran d'accueil, hors-ligne.</span>
+      </div>
+      <button class="btn btn-or btn-petit" id="btn-installer">Installer</button>
+    </div>
+
+    <!-- ---- BANNIÈRE ABONNEMENT ---- -->
+    <div class="bandeau-abonnement" id="bandeau-abonnement">
+      <div class="txt-abo">
+        <strong id="abo-titre">Essai gratuit</strong>
+        <span id="abo-detail">Chargement…</span>
+      </div>
+      <button class="btn btn-petit" id="btn-voir-abonnement">Gérer</button>
+    </div>
+
+    <!-- ---- VUE : TABLEAU DE BORD ---- -->
+    <section id="vue-tableau-bord" class="vue-page">
+      <div class="grille-stats">
+        <div class="stat-carte or"><div class="val" id="stat-chantiers">0</div><div class="lbl">Chantiers</div></div>
+        <div class="stat-carte vert"><div class="val" id="stat-avancement">0%</div><div class="lbl">Avancement moy.</div></div>
+        <div class="stat-carte rouge"><div class="val" id="stat-nc">0</div><div class="lbl">Non-conformités</div></div>
+      </div>
+
+      <div id="alertes-nc"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div class="carte-titre" style="margin-bottom:0;">🏗️ Mes chantiers</div>
+        <button class="btn btn-or btn-petit" id="btn-nouveau-chantier">+ Nouveau</button>
+      </div>
+      <div id="liste-chantiers"></div>
+    </section>
+
+    <!-- ---- VUE : SUIVI DE CHANTIER ---- -->
+    <section id="vue-suivi" class="vue-page hidden">
+      <div class="champ">
+        <label for="select-chantier-suivi">Chantier concerné</label>
+        <select id="select-chantier-suivi"></select>
+      </div>
+      <button class="btn btn-vert" id="btn-nouveau-rapport" style="margin-bottom:16px;">+ Nouveau rapport journalier</button>
+      <div class="carte-titre">📋 Journal de suivi</div>
+      <div id="liste-rapports"></div>
+    </section>
+
+    <!-- ---- VUE : CONTRÔLE QUALITÉ ---- -->
+    <section id="vue-controle" class="vue-page hidden">
+      <div class="champ">
+        <label for="select-chantier-controle">Chantier concerné</label>
+        <select id="select-chantier-controle"></select>
+      </div>
+      <button class="btn btn-or" id="btn-nouveau-controle" style="margin-bottom:16px;">+ Nouveau contrôle qualité</button>
+      <div class="carte-titre">✅ Historique des contrôles</div>
+      <div id="liste-controles"></div>
+    </section>
+
+    <!-- ---- VUE : PROFIL ---- -->
+    <section id="vue-profil" class="vue-page hidden">
+      <div class="carte">
+        <div class="carte-titre">👤 Mon profil</div>
+        <div id="contenu-profil"></div>
+      </div>
+
+      <div class="carte">
+        <div class="carte-titre">💳 Abonnement</div>
+        <div id="contenu-abonnement"></div>
+        <div class="carte-sous" style="margin-top:14px;">
+          Abonnement mensuel : <strong style="color:var(--or);">45 000 FCFA / mois</strong>, pour les comptes Entreprise et Responsable de chantier.
+        </div>
+        <div class="encart-paiement">
+          <div class="encart-paiement-ligne"><span>💰 Montant</span><strong>45 000 FCFA / mois</strong></div>
+          <div class="encart-paiement-ligne"><span>📱 Réception des paiements (Mobile Money)</span><strong>01 62 55 27 78</strong></div>
+          <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus, puis transmettez votre preuve de paiement au développeur pour recevoir votre code d'activation.</div>
+        </div>
+        <form id="form-activation" style="margin-top:14px;">
+          <div class="champ">
+            <label for="in-code-activation">Code d'activation</label>
+            <input type="text" id="in-code-activation" placeholder="Ex : 072026-A3F91C2D" autocomplete="off" style="text-transform:uppercase;">
+          </div>
+          <div class="champ-erreur" id="err-activation" style="display:none;"></div>
+          <button type="submit" class="btn btn-or">Activer mon abonnement</button>
+        </form>
+      </div>
+
+      <div class="carte">
+        <div class="carte-titre">💾 Données locales</div>
+        <div class="carte-sous">Toutes vos données sont stockées uniquement sur cet appareil (IndexedDB).</div>
+        <div class="groupe-btn">
+          <button class="btn btn-contour btn-petit" id="btn-exporter">Exporter (JSON)</button>
+          <button class="btn btn-contour btn-petit" id="btn-importer">Importer</button>
+          <input type="file" id="input-import" accept=".json" class="hidden">
+        </div>
+      </div>
+      <div class="carte">
+        <div class="carte-titre" style="color:#ff6b6b;">⚠️ Zone sensible</div>
+        <button class="btn btn-rouge" id="btn-effacer-donnees">Effacer toutes mes données</button>
+      </div>
+
+      <div class="carte">
+        <div class="carte-titre">ℹ️ À propos</div>
+        <div class="champ"><label>Application</label><div>BTP Vigie — <strong>btpvigie.bj</strong></div></div>
+        <div class="champ"><label>Version</label><div>1.1.0</div></div>
+        <div class="champ mb-0"><label>Développeur</label><div>DESSOUASSI Anaël David (Anavid51)<br>dessouassianael51@gmail.com</div></div>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="nav-bas">
+    <button class="nav-item actif" data-vue="vue-tableau-bord"><span class="ic">🏠</span>Accueil</button>
+    <button class="nav-item" data-vue="vue-suivi"><span class="ic">📋</span>Suivi</button>
+    <button class="nav-item" data-vue="vue-controle"><span class="ic">✅</span>Qualité</button>
+    <button class="nav-item" data-vue="vue-profil"><span class="ic">👤</span>Profil</button>
+  </nav>
+</div>
+
+<!-- ============ MODALES ============ -->
+
+<!-- Modale : Abonnement expiré (paywall) -->
+<div class="superposition" id="modale-paywall">
+  <div class="feuille-modale">
+    <div class="entete-modale"><h2>🔒 Abonnement requis</h2><button class="btn-icone fermer-modale" id="btn-fermer-paywall">✕</button></div>
+    <p class="carte-sous" id="paywall-message">Votre essai gratuit de 2 semaines est terminé. Activez votre abonnement pour continuer à créer des chantiers, rapports et contrôles qualité.</p>
+    <div class="encart-paiement">
+      <div class="encart-paiement-ligne"><span>💰 Montant</span><strong>45 000 FCFA / mois</strong></div>
+      <div class="encart-paiement-ligne"><span>📱 Réception des paiements (Mobile Money)</span><strong>01 62 55 27 78</strong></div>
+      <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus, puis transmettez votre preuve de paiement au développeur pour recevoir votre code d'activation.</div>
+    </div>
+    <form id="form-activation-paywall" style="margin-top:14px;">
+      <div class="champ">
+        <label for="in-code-activation-paywall">Code d'activation</label>
+        <input type="text" id="in-code-activation-paywall" placeholder="Ex : 072026-A3F91C2D" autocomplete="off" style="text-transform:uppercase;">
+      </div>
+      <div class="champ-erreur" id="err-activation-paywall" style="display:none;"></div>
+      <button type="submit" class="btn btn-or">Activer mon abonnement</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale : Nouveau chantier -->
+<div class="superposition" id="modale-chantier">
+  <div class="feuille-modale">
+    <div class="entete-modale"><h2>Nouveau chantier</h2><button class="btn-icone fermer-modale">✕</button></div>
+    <form id="form-chantier">
+      <div class="champ"><label>Nom du chantier</label><input type="text" id="ch-nom" required placeholder="Ex : Résidence Les Palmiers"></div>
+      <div class="champ"><label>Adresse / localisation</label><input type="text" id="ch-adresse" required placeholder="Ex : Cotonou, Akpakpa"></div>
+      <div class="ligne-champs">
+        <div class="champ"><label>Date de début</label><input type="date" id="ch-debut" required></div>
+        <div class="champ"><label>Fin prévue</label><input type="date" id="ch-fin"></div>
+      </div>
+      <div class="champ"><label>Nom du responsable de chantier</label><input type="text" id="ch-responsable" placeholder="Ex : Kofi AGOSSOU"><div class="champ-aide">Si ce responsable a un compte sur cet appareil, le chantier apparaîtra automatiquement dans son espace.</div></div>
+      <div class="champ"><label>Budget prévisionnel (FCFA)</label><input type="number" id="ch-budget" min="0" placeholder="Ex : 15000000"></div>
+      <div class="champ"><label>Description</label><textarea id="ch-description" placeholder="Type de bâtiment, nombre d'étages, particularités..."></textarea></div>
+      <div class="champ">
+        <label style="display:flex;justify-content:space-between;">Position GPS <button type="button" class="btn btn-contour btn-petit" id="btn-geoloc-chantier" style="width:auto;">📍 Localiser</button></label>
+        <div class="champ-aide" id="geoloc-resultat">Aucune position enregistrée</div>
+      </div>
+      <button type="submit" class="btn btn-or">Enregistrer le chantier</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale : Nouveau rapport de suivi -->
+<div class="superposition" id="modale-rapport">
+  <div class="feuille-modale">
+    <div class="entete-modale"><h2>Rapport journalier</h2><button class="btn-icone fermer-modale">✕</button></div>
+    <form id="form-rapport">
+      <div class="ligne-champs">
+        <div class="champ"><label>Date</label><input type="date" id="ra-date" required></div>
+        <div class="champ"><label>Météo</label>
+          <select id="ra-meteo"><option value="Ensoleillé">☀️ Ensoleillé</option><option value="Nuageux">☁️ Nuageux</option><option value="Pluie">🌧️ Pluie</option><option value="Orage">⛈️ Orage</option></select>
+        </div>
+      </div>
+      <div class="ligne-champs">
+        <div class="champ"><label>Effectif sur site</label><input type="number" id="ra-effectif" min="0" placeholder="Nombre d'ouvriers"></div>
+        <div class="champ"><label>Avancement global (%)</label><input type="number" id="ra-avancement" min="0" max="100" required></div>
+      </div>
+      <div class="champ"><label>Travaux réalisés / observations</label><textarea id="ra-description" required placeholder="Décrivez les travaux effectués aujourd'hui..."></textarea></div>
+      <div class="champ">
+        <label>Photos du jour</label>
+        <div class="zone-photos" id="photos-rapport">
+          <button type="button" class="btn-ajout-photo" id="btn-ajout-photo-rapport">+</button>
+        </div>
+        <input type="file" id="input-photo-rapport" accept="image/*" capture="environment" class="hidden" multiple>
+      </div>
+      <button type="submit" class="btn btn-vert">Enregistrer le rapport</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale : Nouveau contrôle qualité -->
+<div class="superposition" id="modale-controle">
+  <div class="feuille-modale">
+    <div class="entete-modale"><h2>Contrôle qualité</h2><button class="btn-icone fermer-modale">✕</button></div>
+    <form id="form-controle">
+      <div class="champ">
+        <label>Phase inspectée</label>
+        <select id="co-phase">
+          <option value="Terrassement">1. Terrassement</option>
+          <option value="Fondations">2. Fondations</option>
+          <option value="Ferraillage">3. Ferraillage</option>
+          <option value="Coulage béton">4. Coulage béton</option>
+          <option value="Élévation murs">5. Élévation des murs</option>
+          <option value="Toiture / charpente">6. Toiture / charpente</option>
+          <option value="Électricité">7. Électricité</option>
+          <option value="Plomberie">8. Plomberie</option>
+          <option value="Finitions">9. Finitions</option>
+        </select>
+      </div>
+      <div class="champ"><label>Date du contrôle</label><input type="date" id="co-date" required></div>
+      <div class="champ">
+        <label>Points de contrôle</label>
+        <div id="items-controle"></div>
+        <div class="champ-aide">✅ Conforme · ➖ Non applicable · ❌ Non-conforme</div>
+      </div>
+      <div class="champ"><label>Commentaire général</label><textarea id="co-commentaire" placeholder="Remarques complémentaires..."></textarea></div>
+      <div class="champ">
+        <label>Photos justificatives</label>
+        <div class="zone-photos" id="photos-controle">
+          <button type="button" class="btn-ajout-photo" id="btn-ajout-photo-controle">+</button>
+        </div>
+        <input type="file" id="input-photo-controle" accept="image/*" capture="environment" class="hidden" multiple>
+      </div>
+      <button type="submit" class="btn btn-or">Valider le contrôle</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale : Détail (rapport / contrôle / chantier) -->
+<div class="superposition" id="modale-detail">
+  <div class="feuille-modale">
+    <div class="entete-modale"><h2 id="titre-detail">Détail</h2><button class="btn-icone fermer-modale">✕</button></div>
+    <div id="contenu-detail"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ==========================================================================
+   BTP VIGIE — Application autonome de suivi de chantier & contrôle qualité
+   Aucune dépendance externe, aucun serveur. Toutes les données (comptes,
+   chantiers, rapports, contrôles, photos) sont stockées dans IndexedDB,
+   directement sur l'appareil de l'utilisateur, de façon permanente.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* 0. UTILITAIRES GÉNÉRAUX                                                 */
+/* ---------------------------------------------------------------------- */
+
+function genId() {
+  return (crypto.randomUUID ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2));
+}
+
+// Empêche toute injection HTML : on échappe systématiquement les données
+// saisies par l'utilisateur avant de les injecter dans le DOM.
+function echapper(chaine) {
+  if (chaine === null || chaine === undefined) return '';
+  return String(chaine)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso + (iso.length === 10 ? 'T00:00:00' : ''));
+  if (isNaN(d)) return echapper(iso);
+  return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function formatFCFA(n) {
+  if (n === undefined || n === null || n === '') return '—';
+  return Number(n).toLocaleString('fr-FR') + ' FCFA';
+}
+
+function toast(message, type) {
+  const cont = document.getElementById('toast-conteneur');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.style.borderColor = type === 'erreur' ? 'var(--rouge)' : (type === 'succes' ? 'var(--vert)' : 'var(--or)');
+  el.textContent = message;
+  cont.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 1. BASE DE DONNÉES LOCALE (IndexedDB) — persistance permanente         */
+/* ---------------------------------------------------------------------- */
+
+const DB_NOM = 'BTPVigie_DB';
+const DB_VERSION = 1;
+let dbInstance = null;
+
+function ouvrirDB() {
+  return new Promise((resolve, reject) => {
+    if (dbInstance) return resolve(dbInstance);
+    const req = indexedDB.open(DB_NOM, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('users')) {
+        const s = db.createObjectStore('users', { keyPath: 'id' });
+        s.createIndex('email', 'email', { unique: true });
+      }
+      if (!db.objectStoreNames.contains('chantiers')) {
+        db.createObjectStore('chantiers', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('rapports')) {
+        db.createObjectStore('rapports', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('controles')) {
+        db.createObjectStore('controles', { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = (e) => { dbInstance = e.target.result; resolve(dbInstance); };
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function dbAjouter(store, objet) {
+  const db = await ouvrirDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(objet);
+    tx.oncomplete = () => resolve(objet);
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function dbObtenir(store, id) {
+  const db = await ouvrirDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const r = tx.objectStore(store).get(id);
+    r.onsuccess = () => resolve(r.result || null);
+    r.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function dbTout(store) {
+  const db = await ouvrirDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const r = tx.objectStore(store).getAll();
+    r.onsuccess = () => resolve(r.result || []);
+    r.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function dbSupprimer(store, id) {
+  const db = await ouvrirDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).delete(id);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function dbEmailExiste(email) {
+  const users = await dbTout('users');
+  return users.some(u => u.email.toLowerCase() === email.toLowerCase());
+}
+
+async function dbUtilisateurParEmail(email) {
+  const users = await dbTout('users');
+  return users.find(u => u.email.toLowerCase() === email.toLowerCase()) || null;
+}
+
+async function dbToutEffacer() {
+  const db = await ouvrirDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(['users', 'chantiers', 'rapports', 'controles'], 'readwrite');
+    ['users', 'chantiers', 'rapports', 'controles'].forEach(s => tx.objectStore(s).clear());
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
+/* ---------------------------------------------------------------------- */
+/* 2. AUTHENTIFICATION RÉELLE (PBKDF2 + sel, via Web Crypto API)          */
+/*    Le mot de passe n'est jamais stocké en clair. On dérive une clé     */
+/*    avec un sel aléatoire unique par utilisateur et 100 000 itérations. */
+/* ---------------------------------------------------------------------- */
+
+async function derivMotDePasse(motDePasse, selBase64) {
+  const enc = new TextEncoder();
+  const sel = selBase64
+    ? Uint8Array.from(atob(selBase64), c => c.charCodeAt(0))
+    : crypto.getRandomValues(new Uint8Array(16));
+
+  const clefBrute = await crypto.subtle.importKey('raw', enc.encode(motDePasse), { name: 'PBKDF2' }, false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: sel, iterations: 100000, hash: 'SHA-256' },
+    clefBrute,
+    256
+  );
+  const hashBase64 = btoa(String.fromCharCode(...new Uint8Array(bits)));
+  const selResultat = btoa(String.fromCharCode(...sel));
+  return { hash: hashBase64, sel: selResultat };
+}
+
+async function verifierMotDePasse(motDePasse, hashStocke, selStocke) {
+  const { hash } = await derivMotDePasse(motDePasse, selStocke);
+  return hash === hashStocke;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 3. SESSION — connexion persistante sur l'appareil (localStorage)       */
+/* ---------------------------------------------------------------------- */
+
+const CLE_SESSION = 'btpvigie_session_v1';
+
+function enregistrerSession(userId, souvenir) {
+  const donnees = { userId, jeton: genId(), date: Date.now() };
+  if (souvenir) {
+    localStorage.setItem(CLE_SESSION, JSON.stringify(donnees));
+  } else {
+    sessionStorage.setItem(CLE_SESSION, JSON.stringify(donnees));
+  }
+}
+
+function lireSession() {
+  try {
+    const brut = localStorage.getItem(CLE_SESSION) || sessionStorage.getItem(CLE_SESSION);
+    return brut ? JSON.parse(brut) : null;
+  } catch { return null; }
+}
+
+function effacerSession() {
+  localStorage.removeItem(CLE_SESSION);
+  sessionStorage.removeItem(CLE_SESSION);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 3bis. ABONNEMENT — essai gratuit de 2 semaines puis 45 000 FCFA/mois   */
+/*                                                                          */
+/* Fonctionnement (application 100% hors-ligne, sans serveur) :           */
+/* - À l'inscription, chaque compte (Entreprise ou Responsable) démarre   */
+/*   automatiquement un essai gratuit de 14 jours.                        */
+/* - Passé ce délai, les actions de création (chantier, rapport,          */
+/*   contrôle) sont bloquées par un écran de paiement (paywall) tant      */
+/*   que l'abonnement n'est pas activé.                                   */
+/* - Paiement : Mobile Money (MTN/Moov) au 01 62 55 27 78, 45 000 FCFA.   */
+/* - Activation : le développeur génère un code hors-ligne, lié au mois   */
+/*   payé et à l'e-mail du client, via genererCodeActivation() (console   */
+/*   développeur uniquement — jamais exposé dans l'interface).            */
+/*   ⚠️ Limite assumée (mode "red team") : le secret vit dans ce fichier  */
+/*   JS livré au client, donc une personne qui inspecte le code source    */
+/*   pourrait le retrouver et forger des codes. Pour une vraie sécurité   */
+/*   commerciale, la génération/validation des codes devra à terme        */
+/*   basculer sur un petit serveur (ex. Supabase) plutôt que rester       */
+/*   entièrement côté client.                                             */
+/* ---------------------------------------------------------------------- */
+
+const ABONNEMENT_PRIX_FCFA = 45000;
+const ABONNEMENT_NUMERO_MOMO = '01 62 55 27 78';
+const ABONNEMENT_ESSAI_JOURS = 14;
+// Secret local utilisé pour signer les codes d'activation hors-ligne.
+// Connu uniquement du développeur (ne pas partager publiquement).
+const ABONNEMENT_SECRET = 'BTPVigie-2026-Anavid51-BJ-SecretActivation';
+
+async function sha256Hex(texte) {
+  const enc = new TextEncoder().encode(texte);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// mois au format "MM-AAAA", ex : "07-2026"
+async function genererCodeActivation(email, mois) {
+  const emailNorm = (email || '').trim().toLowerCase();
+  const moisNorm = (mois || '').trim();
+  const empreinte = await sha256Hex(ABONNEMENT_SECRET + '|' + emailNorm + '|' + moisNorm);
+  const cle = moisNorm.replace('-', '') + '-' + empreinte.slice(0, 8).toUpperCase();
+  return cle;
+}
+// Exposé exprès pour le développeur (console navigateur) : jamais dans l'UI.
+window.genererCodeActivation = genererCodeActivation;
+
+function dernierJourDuMois(mm, aaaa) {
+  return new Date(aaaa, mm, 0, 23, 59, 59).toISOString();
+}
+
+async function verifierCodeActivation(email, code) {
+  const saisie = (code || '').trim().toUpperCase();
+  const m = saisie.match(/^(\d{2})(\d{4})-([A-F0-9]{8})$/);
+  if (!m) return { valide: false, motif: 'Format de code invalide.' };
+  const [, mm, aaaa, empreinteSaisie] = m;
+  const moisNorm = `${mm}-${aaaa}`;
+  const attendu = await genererCodeActivation(email, moisNorm);
+  const empreinteAttendue = attendu.split('-')[1];
+  if (empreinteSaisie !== empreinteAttendue) return { valide: false, motif: 'Code incorrect pour cet e-mail.' };
+  return { valide: true, finPeriode: dernierJourDuMois(Number(mm), Number(aaaa)) };
+}
+
+function calculerStatutAbonnement(user) {
+  const abo = user.abonnement || {};
+  const maintenant = new Date();
+
+  if (abo.finAbonnement && new Date(abo.finAbonnement) >= maintenant) {
+    const fin = new Date(abo.finAbonnement);
+    return { statut: 'actif', libelle: `Abonnement actif jusqu'au ${fin.toLocaleDateString('fr-FR')}`, joursRestants: Math.ceil((fin - maintenant) / 86400000) };
+  }
+  if (abo.finEssai && new Date(abo.finEssai) >= maintenant) {
+    const jours = Math.ceil((new Date(abo.finEssai) - maintenant) / 86400000);
+    return { statut: 'essai', libelle: `Essai gratuit — ${jours} jour${jours > 1 ? 's' : ''} restant${jours > 1 ? 's' : ''}`, joursRestants: jours };
+  }
+  return { statut: 'expire', libelle: 'Abonnement expiré — activation requise', joursRestants: 0 };
+}
+
+function abonnementBloque() {
+  const s = calculerStatutAbonnement(etat.utilisateur).statut;
+  return s === 'expire';
+}
+
+function ouvrirPaywall() {
+  document.getElementById('modale-paywall').classList.add('actif');
+}
+
+function rafraichirBandeauAbonnement() {
+  if (!etat.utilisateur) return;
+  const { statut, libelle } = calculerStatutAbonnement(etat.utilisateur);
+  const bandeau = document.getElementById('bandeau-abonnement');
+  bandeau.classList.remove('statut-essai', 'statut-actif', 'statut-expire');
+  bandeau.classList.add('statut-' + statut);
+  document.getElementById('abo-titre').textContent =
+    statut === 'actif' ? 'Abonnement actif' : (statut === 'essai' ? 'Essai gratuit' : 'Abonnement expiré');
+  document.getElementById('abo-detail').textContent = libelle;
+}
+
+function rendreAbonnementProfil() {
+  const conteneur = document.getElementById('contenu-abonnement');
+  if (!conteneur || !etat.utilisateur) return;
+  const { statut, libelle } = calculerStatutAbonnement(etat.utilisateur);
+  const classeBadge = statut === 'actif' ? 'badge-vert' : (statut === 'essai' ? 'badge-jaune' : 'badge-rouge');
+  const texteBadge = statut === 'actif' ? 'Actif' : (statut === 'essai' ? 'Essai en cours' : 'Expiré');
+  conteneur.innerHTML = `
+    <div class="champ mb-0">
+      <label>Statut</label>
+      <div><span class="badge ${classeBadge}">${texteBadge}</span> <span style="color:var(--texte-att);font-size:13px;">${echapper(libelle)}</span></div>
+    </div>
+  `;
+}
+
+async function activerAbonnementAvecCode(email, codeBrut, elErreur) {
+  const resultat = await verifierCodeActivation(email, codeBrut);
+  if (!resultat.valide) {
+    afficherErreur(elErreur, resultat.motif);
+    return false;
+  }
+  etat.utilisateur.abonnement = etat.utilisateur.abonnement || {};
+  etat.utilisateur.abonnement.finAbonnement = resultat.finPeriode;
+  etat.utilisateur.abonnement.historique = etat.utilisateur.abonnement.historique || [];
+  etat.utilisateur.abonnement.historique.push({ code: codeBrut.trim().toUpperCase(), activeLe: new Date().toISOString() });
+  await dbAjouter('users', etat.utilisateur);
+  rafraichirBandeauAbonnement();
+  rendreAbonnementProfil();
+  return true;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 4. ÉTAT GLOBAL DE L'APPLICATION                                        */
+/* ---------------------------------------------------------------------- */
+
+const etat = {
+  utilisateur: null,       // objet user courant (sans le hash de mdp exposé côté UI)
+  chantiers: [],
+  rapports: [],
+  controles: [],
+  roleAuthActif: 'responsable',
+  photosTempRapport: [],
+  photosTempControle: [],
+  positionChantierTemp: null,
+  eventInstallPWA: null
+};
+
+const PHASES_CHECKLIST = {
+  'Terrassement': ['Nivellement du terrain conforme au plan', 'Absence de zones d\'eau stagnante', 'Piquetage respecté'],
+  'Fondations': ['Profondeur de fouille conforme', 'Béton de propreté coulé', 'Dimensions conformes au plan'],
+  'Ferraillage': ['Diamètre des fers conforme', 'Recouvrements respectés', 'Enrobage suffisant', 'Ligatures correctement serrées'],
+  'Coulage béton': ['Dosage du béton respecté', 'Absence de nids de gravier', 'Vibration correcte du béton', 'Délai de décoffrage respecté'],
+  'Élévation murs': ['Aplomb des murs vérifié', 'Alignement des rangs', 'Joints de mortier réguliers'],
+  'Toiture / charpente': ['Pente conforme au plan', 'Fixation de la charpente', 'Étanchéité vérifiée'],
+  'Électricité': ['Conformité des sections de câbles', 'Mise à la terre présente', 'Disjoncteurs adaptés'],
+  'Plomberie': ['Absence de fuite sous pression', 'Pentes d\'évacuation correctes', 'Raccords conformes'],
+  'Finitions': ['Planéité des enduits', 'Qualité de la peinture', 'Pose des menuiseries']
+};
+
+/* ---------------------------------------------------------------------- */
+/* 5. INITIALISATION                                                      */
+/* ---------------------------------------------------------------------- */
+
+document.addEventListener('DOMContentLoaded', demarrer);
+
+async function demarrer() {
+  enregistrerServiceWorker();
+  configurerInstallationPWA();
+  attacherEcouteurs();
+
+  await ouvrirDB();
+
+  const session = lireSession();
+  if (session && session.userId) {
+    const user = await dbObtenir('users', session.userId);
+    if (user) {
+      await connecterUtilisateur(user, false);
+      basculerEcran('app');
+      document.getElementById('ecran-chargement').style.display = 'none';
+      return;
+    }
+  }
+  effacerSession();
+  document.getElementById('ecran-chargement').style.display = 'none';
+  basculerEcran('auth');
+}
+
+function basculerEcran(nom) {
+  document.getElementById('ecran-auth').classList.toggle('hidden', nom !== 'auth');
+  document.getElementById('app').classList.toggle('actif', nom === 'app');
+}
+
+/* ---------------------------------------------------------------------- */
+/* 6. SERVICE WORKER + INSTALLATION PWA                                   */
+/*                                                                          */
+/* NOTE (fusion en un seul fichier) : HTML, CSS, JS, l'icône et le         */
+/* manifeste sont désormais tous regroupés dans CE fichier index.html     */
+/* (icônes et manifeste encodés en data URI, plus aucun fichier séparé    */
+/* pour eux). Seul sw.js reste un fichier à part, et ce n'est pas un      */
+/* oubli : les navigateurs interdisent d'enregistrer un service worker    */
+/* depuis une URL data:/blob: pour des raisons de sécurité (le script     */
+/* doit être un fichier réel, chargeable et re-vérifiable par le          */
+/* navigateur à chaque mise à jour). C'est une contrainte de la           */
+/* plateforme web, pas une limite de cette app.                           */
+/* ---------------------------------------------------------------------- */
+
+function enregistrerServiceWorker() {
+  // Ce fichier index.html est autonome à 100% : HTML + CSS + JS + icônes +
+  // manifeste sont tous inclus dedans, zéro appel réseau au chargement.
+  // Cette fonction tente d'enregistrer sw.js UNIQUEMENT s'il est présent à
+  // côté du fichier (même dossier). S'il est absent, l'échec est silencieux
+  // et sans conséquence : l'app fonctionne quand même normalement, elle
+  // perd seulement la mise en cache automatique pour un usage hors-ligne
+  // après fermeture du navigateur. Ajoutez sw.js à côté de ce fichier pour
+  // activer cette mise en cache (voir la note fournie avec la livraison).
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => { /* sw.js absent : mode fichier unique, sans mise en cache */ });
+  }
+}
+
+function configurerInstallationPWA() {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    etat.eventInstallPWA = e;
+    document.getElementById('bandeau-install').classList.add('visible');
+  });
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('bandeau-install').classList.remove('visible');
+    toast('BTP Vigie a été installé sur votre appareil ✅', 'succes');
+  });
+  document.getElementById('btn-installer').addEventListener('click', async () => {
+    if (!etat.eventInstallPWA) {
+      toast('Utilisez le menu de votre navigateur : "Ajouter à l\'écran d\'accueil"', 'info');
+      return;
+    }
+    etat.eventInstallPWA.prompt();
+    await etat.eventInstallPWA.userChoice;
+    etat.eventInstallPWA = null;
+    document.getElementById('bandeau-install').classList.remove('visible');
+  });
+}
+
+/* ---------------------------------------------------------------------- */
+/* 7. AUTHENTIFICATION — logique UI                                       */
+/* ---------------------------------------------------------------------- */
+
+function attacherEcouteurs() {
+  // Bascule connexion / inscription
+  document.getElementById('lien-vers-inscription').addEventListener('click', () => {
+    document.getElementById('vue-connexion').classList.add('hidden');
+    document.getElementById('vue-inscription').classList.remove('hidden');
+  });
+  document.getElementById('lien-vers-connexion').addEventListener('click', () => {
+    document.getElementById('vue-inscription').classList.add('hidden');
+    document.getElementById('vue-connexion').classList.remove('hidden');
+  });
+
+  // Onglets rôle (connexion + inscription)
+  document.querySelectorAll('#onglets-role-connexion .onglet-role').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#onglets-role-connexion .onglet-role').forEach(b => b.classList.remove('actif'));
+      btn.classList.add('actif');
+      etat.roleAuthActif = btn.dataset.role;
+    });
+  });
+  document.querySelectorAll('#onglets-role-inscription .onglet-role').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#onglets-role-inscription .onglet-role').forEach(b => b.classList.remove('actif'));
+      btn.classList.add('actif');
+      etat.roleAuthActif = btn.dataset.role;
+      const estEntreprise = btn.dataset.role === 'entreprise';
+      document.getElementById('champ-nom-entreprise').classList.toggle('hidden', !estEntreprise);
+      document.getElementById('lbl-in-nom').textContent = estEntreprise ? 'Nom du responsable légal' : 'Nom complet';
+    });
+  });
+
+  document.getElementById('form-connexion').addEventListener('submit', gererConnexion);
+  document.getElementById('form-inscription').addEventListener('submit', gererInscription);
+  document.getElementById('btn-deconnexion').addEventListener('click', () => {
+    effacerSession();
+    etat.utilisateur = null;
+    basculerEcran('auth');
+    toast('Vous êtes déconnecté', 'info');
+  });
+
+  // Navigation basse
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => afficherVue(btn.dataset.vue));
+  });
+
+  // Fermeture des modales
+  document.querySelectorAll('.fermer-modale').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.superposition').classList.remove('actif'));
+  });
+  document.querySelectorAll('.superposition').forEach(sup => {
+    sup.addEventListener('click', (e) => { if (e.target === sup) sup.classList.remove('actif'); });
+  });
+
+  // Chantier
+  document.getElementById('btn-nouveau-chantier').addEventListener('click', ouvrirModaleChantier);
+  document.getElementById('form-chantier').addEventListener('submit', gererCreationChantier);
+  document.getElementById('btn-geoloc-chantier').addEventListener('click', capturerGeolocalisation);
+
+  // Suivi / rapports
+  document.getElementById('select-chantier-suivi').addEventListener('change', rafraichirListeRapports);
+  document.getElementById('btn-nouveau-rapport').addEventListener('click', ouvrirModaleRapport);
+  document.getElementById('form-rapport').addEventListener('submit', gererCreationRapport);
+  document.getElementById('btn-ajout-photo-rapport').addEventListener('click', () => document.getElementById('input-photo-rapport').click());
+  document.getElementById('input-photo-rapport').addEventListener('change', (e) => gererAjoutPhotos(e, 'photosTempRapport', 'photos-rapport'));
+
+  // Contrôle qualité
+  document.getElementById('select-chantier-controle').addEventListener('change', rafraichirListeControles);
+  document.getElementById('btn-nouveau-controle').addEventListener('click', ouvrirModaleControle);
+  document.getElementById('co-phase').addEventListener('change', genererChecklist);
+  document.getElementById('form-controle').addEventListener('submit', gererCreationControle);
+  document.getElementById('btn-ajout-photo-controle').addEventListener('click', () => document.getElementById('input-photo-controle').click());
+  document.getElementById('input-photo-controle').addEventListener('change', (e) => gererAjoutPhotos(e, 'photosTempControle', 'photos-controle'));
+
+  // Profil
+  document.getElementById('btn-exporter').addEventListener('click', exporterDonnees);
+  document.getElementById('btn-importer').addEventListener('click', () => document.getElementById('input-import').click());
+  document.getElementById('input-import').addEventListener('change', importerDonnees);
+  document.getElementById('btn-effacer-donnees').addEventListener('click', gererEffacementDonnees);
+
+  document.getElementById('btn-voir-abonnement').addEventListener('click', () => afficherVue('vue-profil'));
+
+  document.getElementById('form-activation').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const elErreur = document.getElementById('err-activation');
+    elErreur.style.display = 'none';
+    const code = document.getElementById('in-code-activation').value;
+    const ok = await activerAbonnementAvecCode(etat.utilisateur.email, code, elErreur);
+    if (ok) {
+      document.getElementById('in-code-activation').value = '';
+      toast('Abonnement activé — merci !', 'succes');
+    }
+  });
+
+  document.getElementById('form-activation-paywall').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const elErreur = document.getElementById('err-activation-paywall');
+    elErreur.style.display = 'none';
+    const code = document.getElementById('in-code-activation-paywall').value;
+    const ok = await activerAbonnementAvecCode(etat.utilisateur.email, code, elErreur);
+    if (ok) {
+      document.getElementById('in-code-activation-paywall').value = '';
+      document.getElementById('modale-paywall').classList.remove('actif');
+      toast('Abonnement activé — merci !', 'succes');
+    }
+  });
+}
+
+function validerEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+async function gererInscription(e) {
+  e.preventDefault();
+  const erreurEl = document.getElementById('err-inscription');
+  erreurEl.style.display = 'none';
+
+  const nom = document.getElementById('in-nom').value.trim();
+  const nomEntreprise = document.getElementById('in-nom-entreprise').value.trim();
+  const email = document.getElementById('in-email').value.trim().toLowerCase();
+  const tel = document.getElementById('in-tel').value.trim();
+  const mdp = document.getElementById('in-mdp').value;
+  const mdp2 = document.getElementById('in-mdp2').value;
+  const role = etat.roleAuthActif;
+
+  if (!validerEmail(email)) return afficherErreur(erreurEl, 'Adresse e-mail invalide.');
+  if (mdp.length < 8) return afficherErreur(erreurEl, 'Le mot de passe doit contenir au moins 8 caractères.');
+  if (mdp !== mdp2) return afficherErreur(erreurEl, 'Les mots de passe ne correspondent pas.');
+  if (role === 'entreprise' && !nomEntreprise) return afficherErreur(erreurEl, 'Le nom de l\'entreprise est requis.');
+  if (await dbEmailExiste(email)) return afficherErreur(erreurEl, 'Un compte existe déjà avec cet e-mail.');
+
+  const { hash, sel } = await derivMotDePasse(mdp);
+  const maintenant = new Date();
+  const finEssai = new Date(maintenant.getTime() + ABONNEMENT_ESSAI_JOURS * 86400000);
+  const nouvelUtilisateur = {
+    id: genId(),
+    nom, email, tel, role,
+    nomEntreprise: role === 'entreprise' ? nomEntreprise : '',
+    mdpHash: hash,
+    mdpSel: sel,
+    creeLe: maintenant.toISOString(),
+    abonnement: {
+      debutEssai: maintenant.toISOString(),
+      finEssai: finEssai.toISOString(),
+      finAbonnement: null,
+      historique: []
+    }
+  };
+
+  await dbAjouter('users', nouvelUtilisateur);
+  enregistrerSession(nouvelUtilisateur.id, true);
+  await connecterUtilisateur(nouvelUtilisateur, true);
+  basculerEcran('app');
+  toast(`Bienvenue sur BTP Vigie, ${nom.split(' ')[0]} !`, 'succes');
+}
+
+async function gererConnexion(e) {
+  e.preventDefault();
+  const erreurEl = document.getElementById('err-connexion');
+  erreurEl.style.display = 'none';
+
+  const email = document.getElementById('co-email').value.trim().toLowerCase();
+  const mdp = document.getElementById('co-mdp').value;
+  const souvenir = document.getElementById('co-souvenir').checked;
+
+  const user = await dbUtilisateurParEmail(email);
+  if (!user) return afficherErreur(erreurEl, 'Aucun compte ne correspond à cet e-mail.');
+
+  const valide = await verifierMotDePasse(mdp, user.mdpHash, user.mdpSel);
+  if (!valide) return afficherErreur(erreurEl, 'Mot de passe incorrect.');
+
+  if (user.role !== etat.roleAuthActif) {
+    return afficherErreur(erreurEl, `Ce compte est enregistré comme "${user.role === 'entreprise' ? 'Entreprise' : 'Responsable'}". Sélectionnez le bon onglet.`);
+  }
+
+  enregistrerSession(user.id, souvenir);
+  await connecterUtilisateur(user, true);
+  basculerEcran('app');
+  toast(`Content de vous revoir, ${user.nom.split(' ')[0]} !`, 'succes');
+}
+
+function afficherErreur(el, message) {
+  el.textContent = message;
+  el.style.display = 'block';
+}
+
+async function connecterUtilisateur(user) {
+  etat.utilisateur = user;
+  document.getElementById('etiquette-espace').textContent = user.role === 'entreprise' ? 'Espace entreprise' : 'Espace responsable';
+  await chargerDonneesUtilisateur();
+  afficherVue('vue-tableau-bord');
+  remplirSelecteurChantiers();
+  afficherProfil();
+  rafraichirBandeauAbonnement();
+  if (abonnementBloque()) ouvrirPaywall();
+}
+
+/* ---------------------------------------------------------------------- */
+/* 8. CHARGEMENT DES DONNÉES SELON LE RÔLE                                */
+/* ---------------------------------------------------------------------- */
+
+async function chargerDonneesUtilisateur() {
+  const tousChantiers = await dbTout('chantiers');
+  const u = etat.utilisateur;
+
+  if (u.role === 'entreprise') {
+    etat.chantiers = tousChantiers.filter(c => c.entrepriseId === u.id);
+  } else {
+    const nomNorm = (u.nom || '').trim().toLowerCase();
+    etat.chantiers = tousChantiers.filter(c =>
+      c.responsableId === u.id || (c.responsableNom || '').trim().toLowerCase() === nomNorm
+    );
+  }
+
+  const tousRapports = await dbTout('rapports');
+  const tousControles = await dbTout('controles');
+  const idsChantiers = new Set(etat.chantiers.map(c => c.id));
+  etat.rapports = tousRapports.filter(r => idsChantiers.has(r.chantierId));
+  etat.controles = tousControles.filter(c => idsChantiers.has(c.chantierId));
+
+  rafraichirTableauBord();
+  rafraichirListeRapports();
+  rafraichirListeControles();
+}
+
+/* ---------------------------------------------------------------------- */
+/* 9. NAVIGATION                                                          */
+/* ---------------------------------------------------------------------- */
+
+function afficherVue(idVue) {
+  document.querySelectorAll('.vue-page').forEach(v => v.classList.add('hidden'));
+  document.getElementById(idVue).classList.remove('hidden');
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('actif', b.dataset.vue === idVue));
+  if (idVue === 'vue-tableau-bord') rafraichirTableauBord();
+}
+
+/* ---------------------------------------------------------------------- */
+/* 10. TABLEAU DE BORD                                                    */
+/* ---------------------------------------------------------------------- */
+
+function rafraichirTableauBord() {
+  const chantiers = etat.chantiers;
+  document.getElementById('stat-chantiers').textContent = chantiers.length;
+
+  const moyenne = chantiers.length
+    ? Math.round(chantiers.reduce((s, c) => s + (Number(c.avancement) || 0), 0) / chantiers.length)
+    : 0;
+  document.getElementById('stat-avancement').textContent = moyenne + '%';
+
+  const nc = etat.controles.reduce((total, c) => total + (c.items || []).filter(i => i.etat === 'nonconforme').length, 0);
+  document.getElementById('stat-nc').textContent = nc;
+
+  // Alertes de non-conformités récentes
+  const alertesEl = document.getElementById('alertes-nc');
+  alertesEl.innerHTML = '';
+  if (nc > 0) {
+    const div = document.createElement('div');
+    div.className = 'alerte alerte-rouge';
+    div.innerHTML = `⚠️ <div><b>${nc} non-conformité(s)</b> détectée(s) sur vos contrôles qualité. Consultez l'onglet Qualité pour les traiter.</div>`;
+    alertesEl.appendChild(div);
+  }
+
+  // Liste des chantiers
+  const liste = document.getElementById('liste-chantiers');
+  liste.innerHTML = '';
+  if (!chantiers.length) {
+    liste.innerHTML = `<div class="etat-vide"><div class="ic-vide">🏗️</div><p>Aucun chantier enregistré pour le moment.</p></div>`;
+    return;
+  }
+  chantiers.slice().sort((a, b) => (b.creeLe || '').localeCompare(a.creeLe || '')).forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'item-chantier';
+    const nbRapports = etat.rapports.filter(r => r.chantierId === c.id).length;
+    const nbControles = etat.controles.filter(ct => ct.chantierId === c.id).length;
+    div.innerHTML = `
+      <div class="titre-ligne">
+        <h3>${echapper(c.nom)}</h3>
+        <span class="badge badge-or">${echapper(c.avancement || 0)}%</span>
+      </div>
+      <div class="meta">
+        <span>📍 ${echapper(c.adresse)}</span>
+        <span>👷 ${echapper(c.responsableNom || '—')}</span>
+      </div>
+      <div class="barre-progres"><div style="width:${Math.min(100, Math.max(0, Number(c.avancement) || 0))}%"></div></div>
+      <div class="meta"><span>📋 ${nbRapports} rapport(s)</span><span>✅ ${nbControles} contrôle(s)</span><span>📅 depuis le ${formatDate(c.dateDebut)}</span></div>
+    `;
+    div.addEventListener('click', () => afficherDetailChantier(c));
+    liste.appendChild(div);
+  });
+}
+
+function afficherDetailChantier(c) {
+  document.getElementById('titre-detail').textContent = c.nom;
+  document.getElementById('contenu-detail').innerHTML = `
+    <div class="alerte alerte-vert">🏗️ ${echapper(c.description || 'Aucune description fournie.')}</div>
+    <div class="champ"><label>Adresse</label><div>${echapper(c.adresse)}</div></div>
+    <div class="ligne-champs">
+      <div class="champ"><label>Début</label><div>${formatDate(c.dateDebut)}</div></div>
+      <div class="champ"><label>Fin prévue</label><div>${formatDate(c.dateFin)}</div></div>
+    </div>
+    <div class="champ"><label>Responsable</label><div>${echapper(c.responsableNom || '—')}</div></div>
+    <div class="champ"><label>Budget prévisionnel</label><div>${formatFCFA(c.budget)}</div></div>
+    ${c.latitude ? `<div class="champ"><label>Position GPS</label><div class="mono">${c.latitude.toFixed(5)}, ${c.longitude.toFixed(5)}</div></div>` : ''}
+    <div class="champ"><label>Avancement</label><div class="barre-progres"><div style="width:${c.avancement || 0}%"></div></div></div>
+  `;
+  document.getElementById('modale-detail').classList.add('actif');
+}
+
+/* ---------------------------------------------------------------------- */
+/* 11. GESTION DES CHANTIERS                                              */
+/* ---------------------------------------------------------------------- */
+
+function remplirSelecteurChantiers() {
+  ['select-chantier-suivi', 'select-chantier-controle'].forEach(id => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = '';
+    if (!etat.chantiers.length) {
+      sel.innerHTML = '<option value="">Aucun chantier disponible</option>';
+      return;
+    }
+    etat.chantiers.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.nom;
+      sel.appendChild(opt);
+    });
+  });
+  rafraichirListeRapports();
+  rafraichirListeControles();
+}
+
+function ouvrirModaleChantier() {
+  if (abonnementBloque()) return ouvrirPaywall();
+  document.getElementById('form-chantier').reset();
+  etat.positionChantierTemp = null;
+  document.getElementById('geoloc-resultat').textContent = 'Aucune position enregistrée';
+  document.getElementById('ch-debut').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('modale-chantier').classList.add('actif');
+}
+
+function capturerGeolocalisation() {
+  if (!navigator.geolocation) return toast('Géolocalisation non disponible sur cet appareil', 'erreur');
+  document.getElementById('geoloc-resultat').textContent = 'Localisation en cours...';
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      etat.positionChantierTemp = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
+      document.getElementById('geoloc-resultat').textContent =
+        `📍 ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+    },
+    () => { document.getElementById('geoloc-resultat').textContent = 'Position indisponible (autorisation refusée ?)'; },
+    { enableHighAccuracy: true, timeout: 8000 }
+  );
+}
+
+async function gererCreationChantier(e) {
+  e.preventDefault();
+  const u = etat.utilisateur;
+  const chantier = {
+    id: genId(),
+    nom: document.getElementById('ch-nom').value.trim(),
+    adresse: document.getElementById('ch-adresse').value.trim(),
+    dateDebut: document.getElementById('ch-debut').value,
+    dateFin: document.getElementById('ch-fin').value,
+    responsableNom: document.getElementById('ch-responsable').value.trim() || u.nom,
+    budget: document.getElementById('ch-budget').value || null,
+    description: document.getElementById('ch-description').value.trim(),
+    avancement: 0,
+    statut: 'En cours',
+    entrepriseId: u.role === 'entreprise' ? u.id : (etat.chantiers[0]?.entrepriseId || u.id),
+    responsableId: u.role === 'responsable' ? u.id : null,
+    latitude: etat.positionChantierTemp?.latitude || null,
+    longitude: etat.positionChantierTemp?.longitude || null,
+    creeLe: new Date().toISOString()
+  };
+  await dbAjouter('chantiers', chantier);
+  document.getElementById('modale-chantier').classList.remove('actif');
+  toast('Chantier enregistré avec succès', 'succes');
+  await chargerDonneesUtilisateur();
+  remplirSelecteurChantiers();
+}
+
+/* ---------------------------------------------------------------------- */
+/* 12. SUIVI DE CHANTIER (RAPPORTS JOURNALIERS)                           */
+/* ---------------------------------------------------------------------- */
+
+function ouvrirModaleRapport() {
+  if (abonnementBloque()) return ouvrirPaywall();
+  const idChantier = document.getElementById('select-chantier-suivi').value;
+  if (!idChantier) return toast('Créez d\'abord un chantier', 'erreur');
+  document.getElementById('form-rapport').reset();
+  document.getElementById('ra-date').value = new Date().toISOString().slice(0, 10);
+  etat.photosTempRapport = [];
+  document.getElementById('photos-rapport').innerHTML = '<button type="button" class="btn-ajout-photo" id="btn-ajout-photo-rapport">+</button>';
+  document.getElementById('btn-ajout-photo-rapport').addEventListener('click', () => document.getElementById('input-photo-rapport').click());
+  document.getElementById('modale-rapport').classList.add('actif');
+}
+
+async function gererCreationRapport(e) {
+  e.preventDefault();
+  const idChantier = document.getElementById('select-chantier-suivi').value;
+  const avancement = Number(document.getElementById('ra-avancement').value);
+
+  const rapport = {
+    id: genId(),
+    chantierId: idChantier,
+    userId: etat.utilisateur.id,
+    date: document.getElementById('ra-date').value,
+    meteo: document.getElementById('ra-meteo').value,
+    effectif: document.getElementById('ra-effectif').value || 0,
+    avancement,
+    description: document.getElementById('ra-description').value.trim(),
+    photos: etat.photosTempRapport.slice(),
+    creeLe: new Date().toISOString()
+  };
+  await dbAjouter('rapports', rapport);
+
+  // Mise à jour de l'avancement du chantier
+  const chantier = await dbObtenir('chantiers', idChantier);
+  if (chantier) {
+    chantier.avancement = avancement;
+    await dbAjouter('chantiers', chantier);
+  }
+
+  document.getElementById('modale-rapport').classList.remove('actif');
+  toast('Rapport journalier enregistré', 'succes');
+  await chargerDonneesUtilisateur();
+}
+
+function rafraichirListeRapports() {
+  const idChantier = document.getElementById('select-chantier-suivi').value;
+  const liste = document.getElementById('liste-rapports');
+  liste.innerHTML = '';
+  const rapports = etat.rapports.filter(r => r.chantierId === idChantier).sort((a, b) => b.date.localeCompare(a.date));
+  if (!rapports.length) {
+    liste.innerHTML = `<div class="etat-vide"><div class="ic-vide">📋</div><p>Aucun rapport pour ce chantier.</p></div>`;
+    return;
+  }
+  rapports.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'item-chantier';
+    div.innerHTML = `
+      <div class="titre-ligne">
+        <h3>${formatDate(r.date)}</h3>
+        <span class="badge badge-vert">${echapper(r.avancement)}%</span>
+      </div>
+      <div class="meta"><span>${meteoIcone(r.meteo)} ${echapper(r.meteo)}</span><span>👷 ${echapper(r.effectif || 0)} ouvriers</span><span>📷 ${(r.photos || []).length}</span></div>
+      <div style="font-size:13px;color:var(--texte-att);">${echapper((r.description || '').slice(0, 110))}${(r.description || '').length > 110 ? '…' : ''}</div>
+    `;
+    div.addEventListener('click', () => afficherDetailRapport(r));
+    liste.appendChild(div);
+  });
+}
+
+function meteoIcone(m) {
+  return { 'Ensoleillé': '☀️', 'Nuageux': '☁️', 'Pluie': '🌧️', 'Orage': '⛈️' }[m] || '🌤️';
+}
+
+function afficherDetailRapport(r) {
+  document.getElementById('titre-detail').textContent = 'Rapport du ' + formatDate(r.date);
+  document.getElementById('contenu-detail').innerHTML = `
+    <div class="ligne-champs">
+      <div class="champ"><label>Météo</label><div>${meteoIcone(r.meteo)} ${echapper(r.meteo)}</div></div>
+      <div class="champ"><label>Effectif</label><div>${echapper(r.effectif || 0)} ouvriers</div></div>
+    </div>
+    <div class="champ"><label>Avancement déclaré</label><div class="barre-progres"><div style="width:${r.avancement}%"></div></div></div>
+    <div class="champ"><label>Observations</label><div>${echapper(r.description)}</div></div>
+    ${genererGaleriePhotos(r.photos)}
+  `;
+  document.getElementById('modale-detail').classList.add('actif');
+}
+
+function genererGaleriePhotos(photos) {
+  if (!photos || !photos.length) return '';
+  return `<div class="champ"><label>Photos</label><div class="zone-photos">${photos.map(p => `<div class="miniature-photo" style="width:96px;height:96px;"><img src="${p}"></div>`).join('')}</div></div>`;
+}
+
+/* ---------------------------------------------------------------------- */
+/* 13. CONTRÔLE QUALITÉ                                                   */
+/* ---------------------------------------------------------------------- */
+
+function ouvrirModaleControle() {
+  if (abonnementBloque()) return ouvrirPaywall();
+  const idChantier = document.getElementById('select-chantier-controle').value;
+  if (!idChantier) return toast('Créez d\'abord un chantier', 'erreur');
+  document.getElementById('form-controle').reset();
+  document.getElementById('co-date').value = new Date().toISOString().slice(0, 10);
+  etat.photosTempControle = [];
+  document.getElementById('photos-controle').innerHTML = '<button type="button" class="btn-ajout-photo" id="btn-ajout-photo-controle">+</button>';
+  document.getElementById('btn-ajout-photo-controle').addEventListener('click', () => document.getElementById('input-photo-controle').click());
+  genererChecklist();
+  document.getElementById('modale-controle').classList.add('actif');
+}
+
+function genererChecklist() {
+  const phase = document.getElementById('co-phase').value;
+  const items = PHASES_CHECKLIST[phase] || [];
+  const cont = document.getElementById('items-controle');
+  cont.innerHTML = '';
+  items.forEach((libelle, idx) => {
+    const div = document.createElement('div');
+    div.className = 'item-controle';
+    div.dataset.libelle = libelle;
+    div.innerHTML = `
+      <div class="ligne-item">
+        <div class="libelle">${echapper(libelle)}</div>
+        <div class="trio-etat">
+          <button type="button" class="btn-etat conforme" data-etat="conforme" title="Conforme">✅</button>
+          <button type="button" class="btn-etat na" data-etat="na" title="Non applicable">➖</button>
+          <button type="button" class="btn-etat nonconforme" data-etat="nonconforme" title="Non-conforme">❌</button>
+        </div>
+      </div>
+    `;
+    div.querySelectorAll('.btn-etat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        div.querySelectorAll('.btn-etat').forEach(b => b.classList.remove('actif'));
+        btn.classList.add('actif');
+        div.dataset.etatChoisi = btn.dataset.etat;
+      });
+    });
+    cont.appendChild(div);
+  });
+}
+
+async function gererCreationControle(e) {
+  e.preventDefault();
+  const idChantier = document.getElementById('select-chantier-controle').value;
+  const phase = document.getElementById('co-phase').value;
+
+  const items = Array.from(document.querySelectorAll('#items-controle .item-controle')).map(div => ({
+    libelle: div.dataset.libelle,
+    etat: div.dataset.etatChoisi || 'na'
+  }));
+
+  const nbNonConforme = items.filter(i => i.etat === 'nonconforme').length;
+
+  const controle = {
+    id: genId(),
+    chantierId: idChantier,
+    userId: etat.utilisateur.id,
+    phase,
+    date: document.getElementById('co-date').value,
+    items,
+    commentaire: document.getElementById('co-commentaire').value.trim(),
+    photos: etat.photosTempControle.slice(),
+    statut: nbNonConforme > 0 ? 'Non conforme' : 'Conforme',
+    creeLe: new Date().toISOString()
+  };
+  await dbAjouter('controles', controle);
+  document.getElementById('modale-controle').classList.remove('actif');
+  toast(nbNonConforme > 0 ? `Contrôle enregistré — ${nbNonConforme} non-conformité(s) relevée(s)` : 'Contrôle enregistré — tout est conforme ✅', nbNonConforme > 0 ? 'erreur' : 'succes');
+  await chargerDonneesUtilisateur();
+}
+
+function rafraichirListeControles() {
+  const idChantier = document.getElementById('select-chantier-controle').value;
+  const liste = document.getElementById('liste-controles');
+  liste.innerHTML = '';
+  const controles = etat.controles.filter(c => c.chantierId === idChantier).sort((a, b) => b.date.localeCompare(a.date));
+  if (!controles.length) {
+    liste.innerHTML = `<div class="etat-vide"><div class="ic-vide">✅</div><p>Aucun contrôle qualité pour ce chantier.</p></div>`;
+    return;
+  }
+  controles.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'item-chantier';
+    const nbNC = (c.items || []).filter(i => i.etat === 'nonconforme').length;
+    div.innerHTML = `
+      <div class="titre-ligne">
+        <h3>${echapper(c.phase)}</h3>
+        <span class="badge ${nbNC > 0 ? 'badge-rouge' : 'badge-vert'}">${nbNC > 0 ? nbNC + ' NC' : 'Conforme'}</span>
+      </div>
+      <div class="meta"><span>📅 ${formatDate(c.date)}</span><span>📷 ${(c.photos || []).length}</span></div>
+    `;
+    div.addEventListener('click', () => afficherDetailControle(c));
+    liste.appendChild(div);
+  });
+}
+
+function afficherDetailControle(c) {
+  document.getElementById('titre-detail').textContent = c.phase + ' — ' + formatDate(c.date);
+  const itemsHtml = (c.items || []).map(i => {
+    const icone = i.etat === 'conforme' ? '✅' : (i.etat === 'nonconforme' ? '❌' : '➖');
+    const couleur = i.etat === 'conforme' ? 'var(--vert-clair)' : (i.etat === 'nonconforme' ? '#ff6b6b' : 'var(--texte-att)');
+    return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bordure);"><span>${echapper(i.libelle)}</span><span style="color:${couleur};">${icone}</span></div>`;
+  }).join('');
+  document.getElementById('contenu-detail').innerHTML = `
+    ${itemsHtml}
+    ${c.commentaire ? `<div class="champ mt-16"><label>Commentaire</label><div>${echapper(c.commentaire)}</div></div>` : ''}
+    ${genererGaleriePhotos(c.photos)}
+  `;
+  document.getElementById('modale-detail').classList.add('actif');
+}
+
+/* ---------------------------------------------------------------------- */
+/* 14. GESTION DES PHOTOS (compression avant stockage local)              */
+/* ---------------------------------------------------------------------- */
+
+function gererAjoutPhotos(evenement, cleEtat, idConteneur) {
+  const fichiers = Array.from(evenement.target.files || []);
+  fichiers.forEach(fichier => {
+    const lecteur = new FileReader();
+    lecteur.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const tailleMax = 900;
+        let { width, height } = img;
+        if (width > tailleMax || height > tailleMax) {
+          const ratio = Math.min(tailleMax / width, tailleMax / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        const base64 = canvas.toDataURL('image/jpeg', 0.62);
+        etat[cleEtat].push(base64);
+        rendreMiniaturesPhotos(cleEtat, idConteneur);
+      };
+      img.src = e.target.result;
+    };
+    lecteur.readAsDataURL(fichier);
+  });
+  evenement.target.value = '';
+}
+
+function rendreMiniaturesPhotos(cleEtat, idConteneur) {
+  const cont = document.getElementById(idConteneur);
+  const btnAjout = cont.querySelector('.btn-ajout-photo');
+  cont.querySelectorAll('.miniature-photo').forEach(el => el.remove());
+  etat[cleEtat].forEach((photo, idx) => {
+    const div = document.createElement('div');
+    div.className = 'miniature-photo';
+    div.innerHTML = `<img src="${photo}"><button type="button" class="suppr-photo">✕</button>`;
+    div.querySelector('.suppr-photo').addEventListener('click', () => {
+      etat[cleEtat].splice(idx, 1);
+      rendreMiniaturesPhotos(cleEtat, idConteneur);
+    });
+    cont.insertBefore(div, btnAjout);
+  });
+}
+
+/* ---------------------------------------------------------------------- */
+/* 15. PROFIL, EXPORT / IMPORT, EFFACEMENT                                */
+/* ---------------------------------------------------------------------- */
+
+function afficherProfil() {
+  const u = etat.utilisateur;
+  document.getElementById('contenu-profil').innerHTML = `
+    <div class="champ"><label>Nom</label><div>${echapper(u.nom)}</div></div>
+    ${u.nomEntreprise ? `<div class="champ"><label>Entreprise</label><div>${echapper(u.nomEntreprise)}</div></div>` : ''}
+    <div class="champ"><label>E-mail</label><div>${echapper(u.email)}</div></div>
+    <div class="champ"><label>Téléphone</label><div>${echapper(u.tel || '—')}</div></div>
+    <div class="champ mb-0"><label>Rôle</label><div><span class="badge badge-or">${u.role === 'entreprise' ? 'Entreprise' : 'Responsable de chantier'}</span></div></div>
+  `;
+  rendreAbonnementProfil();
+}
+
+async function exporterDonnees() {
+  const donnees = {
+    version: DB_VERSION,
+    exporteLe: new Date().toISOString(),
+    users: await dbTout('users'),
+    chantiers: await dbTout('chantiers'),
+    rapports: await dbTout('rapports'),
+    controles: await dbTout('controles')
+  };
+  const blob = new Blob([JSON.stringify(donnees, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `btpvigie-sauvegarde-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Sauvegarde exportée', 'succes');
+}
+
+function importerDonnees(e) {
+  const fichier = e.target.files[0];
+  if (!fichier) return;
+  const lecteur = new FileReader();
+  lecteur.onload = async (ev) => {
+    try {
+      const donnees = JSON.parse(ev.target.result);
+      for (const u of donnees.users || []) await dbAjouter('users', u);
+      for (const c of donnees.chantiers || []) await dbAjouter('chantiers', c);
+      for (const r of donnees.rapports || []) await dbAjouter('rapports', r);
+      for (const ct of donnees.controles || []) await dbAjouter('controles', ct);
+      toast('Données importées avec succès', 'succes');
+      await chargerDonneesUtilisateur();
+      remplirSelecteurChantiers();
+    } catch {
+      toast('Fichier de sauvegarde invalide', 'erreur');
+    }
+  };
+  lecteur.readAsText(fichier);
+  e.target.value = '';
+}
+
+async function gererEffacementDonnees() {
+  const confirmation1 = confirm('Voulez-vous vraiment effacer TOUTES les données de BTP Vigie sur cet appareil ? Cette action est irréversible.');
+  if (!confirmation1) return;
+  const confirmation2 = confirm('Dernière confirmation : tous les chantiers, rapports, contrôles et comptes seront supprimés définitivement. Continuer ?');
+  if (!confirmation2) return;
+  await dbToutEffacer();
+  effacerSession();
+  toast('Toutes les données ont été effacées', 'info');
+  setTimeout(() => window.location.reload(), 900);
+}
+
+</script>
+</body>
+</html>
