@@ -563,16 +563,9 @@ a { color: inherit; text-decoration: none; }
         <div class="encart-paiement">
           <div class="encart-paiement-ligne"><span>💰 Montant</span><strong>45 000 FCFA / mois</strong></div>
           <div class="encart-paiement-ligne"><span>📱 Réception des paiements (Mobile Money)</span><strong>01 62 55 27 78</strong></div>
-          <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus, puis transmettez votre preuve de paiement au développeur pour recevoir votre code d'activation.</div>
+          <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus. Une fois le paiement effectué, activez directement ci-dessous.</div>
         </div>
-        <form id="form-activation" style="margin-top:14px;">
-          <div class="champ">
-            <label for="in-code-activation">Code d'activation</label>
-            <input type="text" id="in-code-activation" placeholder="Ex : 072026-A3F91C2D" autocomplete="off" style="text-transform:uppercase;">
-          </div>
-          <div class="champ-erreur" id="err-activation" style="display:none;"></div>
-          <button type="submit" class="btn btn-or">Activer mon abonnement</button>
-        </form>
+        <button type="button" class="btn btn-or" id="btn-activer-abonnement" style="margin-top:14px;">✅ J'ai payé — Activer mon abonnement (30 jours)</button>
       </div>
 
       <div class="carte">
@@ -617,16 +610,9 @@ a { color: inherit; text-decoration: none; }
     <div class="encart-paiement">
       <div class="encart-paiement-ligne"><span>💰 Montant</span><strong>45 000 FCFA / mois</strong></div>
       <div class="encart-paiement-ligne"><span>📱 Réception des paiements (Mobile Money)</span><strong>01 62 55 27 78</strong></div>
-      <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus, puis transmettez votre preuve de paiement au développeur pour recevoir votre code d'activation.</div>
+      <div class="champ-aide">Envoyez le montant par Mobile Money (MTN/Moov) au numéro ci-dessus. Une fois le paiement effectué, activez directement ci-dessous.</div>
     </div>
-    <form id="form-activation-paywall" style="margin-top:14px;">
-      <div class="champ">
-        <label for="in-code-activation-paywall">Code d'activation</label>
-        <input type="text" id="in-code-activation-paywall" placeholder="Ex : 072026-A3F91C2D" autocomplete="off" style="text-transform:uppercase;">
-      </div>
-      <div class="champ-erreur" id="err-activation-paywall" style="display:none;"></div>
-      <button type="submit" class="btn btn-or">Activer mon abonnement</button>
-    </form>
+    <button type="button" class="btn btn-or" id="btn-activer-abonnement-paywall" style="margin-top:14px;">✅ J'ai payé — Activer mon abonnement (30 jours)</button>
   </div>
 </div>
 
@@ -937,56 +923,19 @@ function effacerSession() {
 /*   contrôle) sont bloquées par un écran de paiement (paywall) tant      */
 /*   que l'abonnement n'est pas activé.                                   */
 /* - Paiement : Mobile Money (MTN/Moov) au 01 62 55 27 78, 45 000 FCFA.   */
-/* - Activation : le développeur génère un code hors-ligne, lié au mois   */
-/*   payé et à l'e-mail du client, via genererCodeActivation() (console   */
-/*   développeur uniquement — jamais exposé dans l'interface).            */
-/*   ⚠️ Limite assumée (mode "red team") : le secret vit dans ce fichier  */
-/*   JS livré au client, donc une personne qui inspecte le code source    */
-/*   pourrait le retrouver et forger des codes. Pour une vraie sécurité   */
-/*   commerciale, la génération/validation des codes devra à terme        */
-/*   basculer sur un petit serveur (ex. Supabase) plutôt que rester       */
-/*   entièrement côté client.                                             */
+/* - Activation : en un clic ("J'ai payé"), directement dans l'app, sans  */
+/*   code à demander au développeur. C'est un système à l'honneur : la    */
+/*   preuve de paiement n'est pas vérifiée automatiquement, faute de      */
+/*   serveur. Un utilisateur pourrait techniquement cliquer sans avoir    */
+/*   payé. Ce compromis a été choisi volontairement (simplicité côté      */
+/*   client) à la place du système à code, plus strict mais plus lourd à  */
+/*   opérer manuellement pour le développeur.                             */
 /* ---------------------------------------------------------------------- */
 
 const ABONNEMENT_PRIX_FCFA = 45000;
 const ABONNEMENT_NUMERO_MOMO = '01 62 55 27 78';
 const ABONNEMENT_ESSAI_JOURS = 14;
-// Secret local utilisé pour signer les codes d'activation hors-ligne.
-// Connu uniquement du développeur (ne pas partager publiquement).
-const ABONNEMENT_SECRET = 'BTPVigie-2026-Anavid51-BJ-SecretActivation';
-
-async function sha256Hex(texte) {
-  const enc = new TextEncoder().encode(texte);
-  const buf = await crypto.subtle.digest('SHA-256', enc);
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-// mois au format "MM-AAAA", ex : "07-2026"
-async function genererCodeActivation(email, mois) {
-  const emailNorm = (email || '').trim().toLowerCase();
-  const moisNorm = (mois || '').trim();
-  const empreinte = await sha256Hex(ABONNEMENT_SECRET + '|' + emailNorm + '|' + moisNorm);
-  const cle = moisNorm.replace('-', '') + '-' + empreinte.slice(0, 8).toUpperCase();
-  return cle;
-}
-// Exposé exprès pour le développeur (console navigateur) : jamais dans l'UI.
-window.genererCodeActivation = genererCodeActivation;
-
-function dernierJourDuMois(mm, aaaa) {
-  return new Date(aaaa, mm, 0, 23, 59, 59).toISOString();
-}
-
-async function verifierCodeActivation(email, code) {
-  const saisie = (code || '').trim().toUpperCase();
-  const m = saisie.match(/^(\d{2})(\d{4})-([A-F0-9]{8})$/);
-  if (!m) return { valide: false, motif: 'Format de code invalide.' };
-  const [, mm, aaaa, empreinteSaisie] = m;
-  const moisNorm = `${mm}-${aaaa}`;
-  const attendu = await genererCodeActivation(email, moisNorm);
-  const empreinteAttendue = attendu.split('-')[1];
-  if (empreinteSaisie !== empreinteAttendue) return { valide: false, motif: 'Code incorrect pour cet e-mail.' };
-  return { valide: true, finPeriode: dernierJourDuMois(Number(mm), Number(aaaa)) };
-}
+const ABONNEMENT_DUREE_JOURS = 30;
 
 function calculerStatutAbonnement(user) {
   const abo = user.abonnement || {};
@@ -1037,20 +986,16 @@ function rendreAbonnementProfil() {
   `;
 }
 
-async function activerAbonnementAvecCode(email, codeBrut, elErreur) {
-  const resultat = await verifierCodeActivation(email, codeBrut);
-  if (!resultat.valide) {
-    afficherErreur(elErreur, resultat.motif);
-    return false;
-  }
+async function activerAbonnementSansCode() {
+  const maintenant = new Date();
+  const finAbonnement = new Date(maintenant.getTime() + ABONNEMENT_DUREE_JOURS * 86400000);
   etat.utilisateur.abonnement = etat.utilisateur.abonnement || {};
-  etat.utilisateur.abonnement.finAbonnement = resultat.finPeriode;
+  etat.utilisateur.abonnement.finAbonnement = finAbonnement.toISOString();
   etat.utilisateur.abonnement.historique = etat.utilisateur.abonnement.historique || [];
-  etat.utilisateur.abonnement.historique.push({ code: codeBrut.trim().toUpperCase(), activeLe: new Date().toISOString() });
+  etat.utilisateur.abonnement.historique.push({ activeLe: maintenant.toISOString(), methode: 'auto-declaratif' });
   await dbAjouter('users', etat.utilisateur);
   rafraichirBandeauAbonnement();
   rendreAbonnementProfil();
-  return true;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1248,29 +1193,15 @@ function attacherEcouteurs() {
 
   document.getElementById('btn-voir-abonnement').addEventListener('click', () => afficherVue('vue-profil'));
 
-  document.getElementById('form-activation').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const elErreur = document.getElementById('err-activation');
-    elErreur.style.display = 'none';
-    const code = document.getElementById('in-code-activation').value;
-    const ok = await activerAbonnementAvecCode(etat.utilisateur.email, code, elErreur);
-    if (ok) {
-      document.getElementById('in-code-activation').value = '';
-      toast('Abonnement activé — merci !', 'succes');
-    }
+  document.getElementById('btn-activer-abonnement').addEventListener('click', async () => {
+    await activerAbonnementSansCode();
+    toast('Abonnement activé pour 30 jours — merci !', 'succes');
   });
 
-  document.getElementById('form-activation-paywall').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const elErreur = document.getElementById('err-activation-paywall');
-    elErreur.style.display = 'none';
-    const code = document.getElementById('in-code-activation-paywall').value;
-    const ok = await activerAbonnementAvecCode(etat.utilisateur.email, code, elErreur);
-    if (ok) {
-      document.getElementById('in-code-activation-paywall').value = '';
-      document.getElementById('modale-paywall').classList.remove('actif');
-      toast('Abonnement activé — merci !', 'succes');
-    }
+  document.getElementById('btn-activer-abonnement-paywall').addEventListener('click', async () => {
+    await activerAbonnementSansCode();
+    document.getElementById('modale-paywall').classList.remove('actif');
+    toast('Abonnement activé pour 30 jours — merci !', 'succes');
   });
 }
 
