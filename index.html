@@ -354,6 +354,7 @@ a { color: inherit; text-decoration: none; }
 .stat-carte.or .val { color: var(--or); }
 .stat-carte.vert .val { color: var(--vert-clair); }
 .stat-carte.rouge .val { color: #ff6b6b; }
+.stat-carte.jaune .val { color: var(--jaune); }
 
 /* ---------- Toast ---------- */
 #toast-conteneur { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 999; display: flex; flex-direction: column; gap: 8px; width: calc(100% - 32px); max-width: 420px; }
@@ -517,6 +518,17 @@ a { color: inherit; text-decoration: none; }
         <div class="stat-carte or"><div class="val" id="stat-chantiers">0</div><div class="lbl">Chantiers</div></div>
         <div class="stat-carte vert"><div class="val" id="stat-avancement">0%</div><div class="lbl">Avancement moy.</div></div>
         <div class="stat-carte rouge"><div class="val" id="stat-nc">0</div><div class="lbl">Non-conformités</div></div>
+        <div class="stat-carte jaune"><div class="val" id="stat-conformite">—</div><div class="lbl">Taux de conformité</div></div>
+      </div>
+
+      <div class="ligne-champs" style="margin-bottom:12px;">
+        <input type="text" id="recherche-chantiers" placeholder="🔎 Rechercher un chantier (nom, adresse)…">
+        <select id="filtre-statut-chantiers">
+          <option value="">Tous les statuts</option>
+          <option value="En cours">🟢 En cours</option>
+          <option value="Suspendu">🟡 Suspendu</option>
+          <option value="Terminé">⚪ Terminé</option>
+        </select>
       </div>
 
       <div id="alertes-nc"></div>
@@ -633,13 +645,21 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
-<!-- Modale : Nouveau chantier -->
+<!-- Modale : Nouveau / Modifier chantier -->
 <div class="superposition" id="modale-chantier">
   <div class="feuille-modale">
-    <div class="entete-modale"><h2>Nouveau chantier</h2><button class="btn-icone fermer-modale">✕</button></div>
+    <div class="entete-modale"><h2 id="titre-modale-chantier">Nouveau chantier</h2><button class="btn-icone fermer-modale">✕</button></div>
     <form id="form-chantier">
       <div class="champ"><label>Nom du chantier</label><input type="text" id="ch-nom" required placeholder="Ex : Résidence Les Palmiers"></div>
       <div class="champ"><label>Adresse / localisation</label><input type="text" id="ch-adresse" required placeholder="Ex : Cotonou, Akpakpa"></div>
+      <div class="champ hidden" id="bloc-statut-chantier">
+        <label>Statut</label>
+        <select id="ch-statut">
+          <option value="En cours">🟢 En cours</option>
+          <option value="Suspendu">🟡 Suspendu</option>
+          <option value="Terminé">⚪ Terminé</option>
+        </select>
+      </div>
       <div class="ligne-champs">
         <div class="champ"><label>Date de début</label><input type="date" id="ch-debut" required></div>
         <div class="champ"><label>Fin prévue</label><input type="date" id="ch-fin"></div>
@@ -648,10 +668,14 @@ a { color: inherit; text-decoration: none; }
       <div class="champ"><label>Budget prévisionnel (FCFA)</label><input type="number" id="ch-budget" min="0" placeholder="Ex : 15000000"></div>
       <div class="champ"><label>Description</label><textarea id="ch-description" placeholder="Type de bâtiment, nombre d'étages, particularités..."></textarea></div>
       <div class="champ">
-        <label style="display:flex;justify-content:space-between;">Position GPS <button type="button" class="btn btn-contour btn-petit" id="btn-geoloc-chantier" style="width:auto;">📍 Localiser</button></label>
-        <div class="champ-aide" id="geoloc-resultat">Aucune position enregistrée</div>
+        <label style="display:flex;justify-content:space-between;">Position GPS <button type="button" class="btn btn-contour btn-petit" id="btn-geoloc-chantier" style="width:auto;">📍 Utiliser ma position actuelle</button></label>
+        <div class="ligne-champs" style="margin-top:8px;">
+          <div class="champ mb-0"><label style="font-size:11px;">Latitude</label><input type="number" id="ch-latitude" step="0.000001" placeholder="Ex : 6.365200"></div>
+          <div class="champ mb-0"><label style="font-size:11px;">Longitude</label><input type="number" id="ch-longitude" step="0.000001" placeholder="Ex : 2.419700"></div>
+        </div>
+        <div class="champ-aide">Vous n'êtes pas obligé d'être sur place : entrez les coordonnées manuellement (copiées depuis Google Maps par ex.), ou utilisez le bouton GPS si vous êtes sur le chantier.</div>
       </div>
-      <button type="submit" class="btn btn-or">Enregistrer le chantier</button>
+      <button type="submit" class="btn btn-or" id="btn-submit-chantier">Enregistrer le chantier</button>
     </form>
   </div>
 </div>
@@ -672,6 +696,10 @@ a { color: inherit; text-decoration: none; }
         <div class="champ"><label>Avancement global (%)</label><input type="number" id="ra-avancement" min="0" max="100" required></div>
       </div>
       <div class="champ"><label>Travaux réalisés / observations</label><textarea id="ra-description" required placeholder="Décrivez les travaux effectués aujourd'hui..."></textarea></div>
+      <div class="champ">
+        <label style="display:flex;justify-content:space-between;">Preuve de présence <button type="button" class="btn btn-contour btn-petit" id="btn-geoloc-rapport" style="width:auto;">📍 Pointer ma position</button></label>
+        <div class="champ-aide" id="geoloc-rapport-resultat">Position non enregistrée (facultatif)</div>
+      </div>
       <div class="champ">
         <label>Photos du jour</label>
         <div class="zone-photos" id="photos-rapport">
@@ -1123,7 +1151,7 @@ const etat = {
   roleAuthActif: 'responsable',
   photosTempRapport: [],
   photosTempControle: [],
-  positionChantierTemp: null,
+  positionRapportTemp: null,
   eventInstallPWA: null
 };
 
@@ -1290,6 +1318,9 @@ function attacherEcouteurs() {
   document.getElementById('btn-nouveau-chantier').addEventListener('click', ouvrirModaleChantier);
   document.getElementById('form-chantier').addEventListener('submit', gererCreationChantier);
   document.getElementById('btn-geoloc-chantier').addEventListener('click', capturerGeolocalisation);
+  document.getElementById('btn-geoloc-rapport').addEventListener('click', capturerGeolocalisationRapport);
+  document.getElementById('recherche-chantiers').addEventListener('input', afficherListeChantiersFiltree);
+  document.getElementById('filtre-statut-chantiers').addEventListener('change', afficherListeChantiersFiltree);
 
   // Suivi / rapports
   document.getElementById('select-chantier-suivi').addEventListener('change', rafraichirListeRapports);
@@ -1487,6 +1518,12 @@ function rafraichirTableauBord() {
   const nc = etat.controles.reduce((total, c) => total + (c.items || []).filter(i => i.etat === 'nonconforme').length, 0);
   document.getElementById('stat-nc').textContent = nc;
 
+  const totalItemsEvalues = etat.controles.reduce((total, c) => total + (c.items || []).filter(i => i.etat !== 'na').length, 0);
+  const totalItemsConformes = etat.controles.reduce((total, c) => total + (c.items || []).filter(i => i.etat === 'conforme').length, 0);
+  document.getElementById('stat-conformite').textContent = totalItemsEvalues
+    ? Math.round((totalItemsConformes / totalItemsEvalues) * 100) + '%'
+    : '—';
+
   // Alertes de non-conformités récentes
   const alertesEl = document.getElementById('alertes-nc');
   alertesEl.innerHTML = '';
@@ -1497,14 +1534,33 @@ function rafraichirTableauBord() {
     alertesEl.appendChild(div);
   }
 
+  afficherListeChantiersFiltree();
+}
+
+function afficherListeChantiersFiltree() {
+  const recherche = (document.getElementById('recherche-chantiers').value || '').trim().toLowerCase();
+  const filtreStatut = document.getElementById('filtre-statut-chantiers').value;
+
+  const chantiersFiltres = etat.chantiers.filter(c => {
+    const correspondRecherche = !recherche ||
+      (c.nom || '').toLowerCase().includes(recherche) ||
+      (c.adresse || '').toLowerCase().includes(recherche);
+    const correspondStatut = !filtreStatut || c.statut === filtreStatut;
+    return correspondRecherche && correspondStatut;
+  });
+
   // Liste des chantiers
   const liste = document.getElementById('liste-chantiers');
   liste.innerHTML = '';
-  if (!chantiers.length) {
+  if (!etat.chantiers.length) {
     liste.innerHTML = `<div class="etat-vide"><div class="ic-vide">🏗️</div><p>Aucun chantier enregistré pour le moment.</p></div>`;
     return;
   }
-  chantiers.slice().sort((a, b) => (b.creeLe || '').localeCompare(a.creeLe || '')).forEach(c => {
+  if (!chantiersFiltres.length) {
+    liste.innerHTML = `<div class="etat-vide"><div class="ic-vide">🔎</div><p>Aucun chantier ne correspond à votre recherche.</p></div>`;
+    return;
+  }
+  chantiersFiltres.slice().sort((a, b) => (b.creeLe || '').localeCompare(a.creeLe || '')).forEach(c => {
     const div = document.createElement('div');
     div.className = 'item-chantier';
     const nbRapports = etat.rapports.filter(r => r.chantierId === c.id).length;
@@ -1517,6 +1573,7 @@ function rafraichirTableauBord() {
       <div class="meta">
         <span>📍 ${echapper(c.adresse)}</span>
         <span>👷 ${echapper(c.responsableNom || '—')}</span>
+        ${(c.latitude && c.longitude) ? `<a href="${lienCarte(c.latitude, c.longitude)}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--or);">🗺️ Voir sur la carte</a>` : ''}
       </div>
       <div class="barre-progres"><div style="width:${Math.min(100, Math.max(0, Number(c.avancement) || 0))}%"></div></div>
       <div class="meta"><span>📋 ${nbRapports} rapport(s)</span><span>✅ ${nbControles} contrôle(s)</span><span>📅 depuis le ${formatDate(c.dateDebut)}</span></div>
@@ -1537,10 +1594,17 @@ function afficherDetailChantier(c) {
     </div>
     <div class="champ"><label>Responsable</label><div>${echapper(c.responsableNom || '—')}</div></div>
     <div class="champ"><label>Budget prévisionnel</label><div>${formatFCFA(c.budget)}</div></div>
-    ${c.latitude ? `<div class="champ"><label>Position GPS</label><div class="mono">${c.latitude.toFixed(5)}, ${c.longitude.toFixed(5)}</div></div>` : ''}
+    ${c.latitude ? `
+      <div class="champ">
+        <label>Position GPS</label>
+        <div class="mono">${c.latitude.toFixed(5)}, ${c.longitude.toFixed(5)}</div>
+        <a href="https://www.google.com/maps?q=${c.latitude},${c.longitude}" target="_blank" rel="noopener" class="btn btn-contour btn-petit" style="display:inline-block;width:auto;margin-top:6px;text-decoration:none;">🗺️ Ouvrir dans Maps</a>
+      </div>` : ''}
     <div class="champ"><label>Avancement</label><div class="barre-progres"><div style="width:${c.avancement || 0}%"></div></div></div>
+    <button type="button" class="btn btn-or" id="btn-modifier-chantier" style="margin-top:16px;">✏️ Modifier ce chantier</button>
   `;
   document.getElementById('modale-detail').classList.add('actif');
+  document.getElementById('btn-modifier-chantier').addEventListener('click', () => ouvrirModaleModifierChantier(c));
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1569,29 +1633,91 @@ function remplirSelecteurChantiers() {
 function ouvrirModaleChantier() {
   if (abonnementBloque()) return ouvrirPaywall();
   document.getElementById('form-chantier').reset();
-  etat.positionChantierTemp = null;
-  document.getElementById('geoloc-resultat').textContent = 'Aucune position enregistrée';
+  document.getElementById('form-chantier').dataset.editId = '';
+  document.getElementById('titre-modale-chantier').textContent = 'Nouveau chantier';
+  document.getElementById('btn-submit-chantier').textContent = 'Enregistrer le chantier';
+  document.getElementById('bloc-statut-chantier').classList.add('hidden');
   document.getElementById('ch-debut').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('modale-chantier').classList.add('actif');
+}
+
+function ouvrirModaleModifierChantier(c) {
+  document.getElementById('modale-detail').classList.remove('actif');
+  const form = document.getElementById('form-chantier');
+  form.reset();
+  form.dataset.editId = c.id;
+  document.getElementById('titre-modale-chantier').textContent = 'Modifier le chantier';
+  document.getElementById('btn-submit-chantier').textContent = 'Enregistrer les modifications';
+  document.getElementById('bloc-statut-chantier').classList.remove('hidden');
+  document.getElementById('ch-nom').value = c.nom || '';
+  document.getElementById('ch-adresse').value = c.adresse || '';
+  document.getElementById('ch-statut').value = c.statut || 'En cours';
+  document.getElementById('ch-debut').value = c.dateDebut || '';
+  document.getElementById('ch-fin').value = c.dateFin || '';
+  document.getElementById('ch-responsable').value = c.responsableNom || '';
+  document.getElementById('ch-budget').value = c.budget || '';
+  document.getElementById('ch-description').value = c.description || '';
+  document.getElementById('ch-latitude').value = c.latitude ?? '';
+  document.getElementById('ch-longitude').value = c.longitude ?? '';
   document.getElementById('modale-chantier').classList.add('actif');
 }
 
 function capturerGeolocalisation() {
   if (!navigator.geolocation) return toast('Géolocalisation non disponible sur cet appareil', 'erreur');
-  document.getElementById('geoloc-resultat').textContent = 'Localisation en cours...';
+  const btn = document.getElementById('btn-geoloc-chantier');
+  const texteOriginal = btn.textContent;
+  btn.textContent = 'Localisation en cours…';
   navigator.geolocation.getCurrentPosition(
     (pos) => {
-      etat.positionChantierTemp = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
-      document.getElementById('geoloc-resultat').textContent =
-        `📍 ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+      document.getElementById('ch-latitude').value = pos.coords.latitude.toFixed(6);
+      document.getElementById('ch-longitude').value = pos.coords.longitude.toFixed(6);
+      btn.textContent = texteOriginal;
+      toast('Position GPS récupérée ✅', 'succes');
     },
-    () => { document.getElementById('geoloc-resultat').textContent = 'Position indisponible (autorisation refusée ?)'; },
+    () => {
+      btn.textContent = texteOriginal;
+      toast('Position indisponible (autorisation refusée ?)', 'erreur');
+    },
     { enableHighAccuracy: true, timeout: 8000 }
   );
+}
+
+// Lien vers OpenStreetMap pour visualiser une position (aucune dépendance
+// au chargement de la page : c'est un lien externe ouvert sur demande,
+// pas un appel réseau automatique).
+function lienCarte(latitude, longitude) {
+  return `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=17/${latitude}/${longitude}`;
 }
 
 async function gererCreationChantier(e) {
   e.preventDefault();
   const u = etat.utilisateur;
+  const form = document.getElementById('form-chantier');
+  const idEdition = form.dataset.editId;
+  const latBrut = document.getElementById('ch-latitude').value;
+  const lonBrut = document.getElementById('ch-longitude').value;
+
+  if (idEdition) {
+    // --- Mode modification : on met à jour le chantier existant ---
+    const chantier = await dbObtenir('chantiers', idEdition);
+    if (!chantier) return toast('Chantier introuvable', 'erreur');
+    chantier.nom = document.getElementById('ch-nom').value.trim();
+    chantier.adresse = document.getElementById('ch-adresse').value.trim();
+    chantier.statut = document.getElementById('ch-statut').value;
+    chantier.dateDebut = document.getElementById('ch-debut').value;
+    chantier.dateFin = document.getElementById('ch-fin').value;
+    chantier.responsableNom = document.getElementById('ch-responsable').value.trim() || u.nom;
+    chantier.budget = document.getElementById('ch-budget').value || null;
+    chantier.description = document.getElementById('ch-description').value.trim();
+    chantier.latitude = latBrut !== '' ? Number(latBrut) : null;
+    chantier.longitude = lonBrut !== '' ? Number(lonBrut) : null;
+    await dbAjouter('chantiers', chantier);
+    document.getElementById('modale-chantier').classList.remove('actif');
+    toast('Chantier modifié avec succès', 'succes');
+    await chargerDonneesUtilisateur();
+    return;
+  }
+
   const chantier = {
     id: genId(),
     nom: document.getElementById('ch-nom').value.trim(),
@@ -1605,8 +1731,8 @@ async function gererCreationChantier(e) {
     statut: 'En cours',
     entrepriseId: u.role === 'entreprise' ? u.id : (etat.chantiers[0]?.entrepriseId || u.id),
     responsableId: u.role === 'responsable' ? u.id : null,
-    latitude: etat.positionChantierTemp?.latitude || null,
-    longitude: etat.positionChantierTemp?.longitude || null,
+    latitude: latBrut !== '' ? Number(latBrut) : null,
+    longitude: lonBrut !== '' ? Number(lonBrut) : null,
     creeLe: new Date().toISOString()
   };
   await dbAjouter('chantiers', chantier);
@@ -1627,9 +1753,25 @@ function ouvrirModaleRapport() {
   document.getElementById('form-rapport').reset();
   document.getElementById('ra-date').value = new Date().toISOString().slice(0, 10);
   etat.photosTempRapport = [];
+  etat.positionRapportTemp = null;
+  document.getElementById('geoloc-rapport-resultat').textContent = 'Position non enregistrée (facultatif)';
   document.getElementById('photos-rapport').innerHTML = '<button type="button" class="btn-ajout-photo" id="btn-ajout-photo-rapport">+</button>';
   document.getElementById('btn-ajout-photo-rapport').addEventListener('click', () => document.getElementById('input-photo-rapport').click());
   document.getElementById('modale-rapport').classList.add('actif');
+}
+
+function capturerGeolocalisationRapport() {
+  if (!navigator.geolocation) return toast('Géolocalisation non disponible sur cet appareil', 'erreur');
+  const zone = document.getElementById('geoloc-rapport-resultat');
+  zone.textContent = 'Localisation en cours…';
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      etat.positionRapportTemp = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
+      zone.textContent = `✅ Position enregistrée : ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+    },
+    () => { zone.textContent = 'Position indisponible (autorisation refusée ?)'; },
+    { enableHighAccuracy: true, timeout: 8000 }
+  );
 }
 
 async function gererCreationRapport(e) {
@@ -1647,6 +1789,8 @@ async function gererCreationRapport(e) {
     avancement,
     description: document.getElementById('ra-description').value.trim(),
     photos: etat.photosTempRapport.slice(),
+    latitude: etat.positionRapportTemp?.latitude ?? null,
+    longitude: etat.positionRapportTemp?.longitude ?? null,
     creeLe: new Date().toISOString()
   };
   await dbAjouter('rapports', rapport);
@@ -1701,6 +1845,12 @@ function afficherDetailRapport(r) {
     </div>
     <div class="champ"><label>Avancement déclaré</label><div class="barre-progres"><div style="width:${r.avancement}%"></div></div></div>
     <div class="champ"><label>Observations</label><div>${echapper(r.description)}</div></div>
+    ${(r.latitude && r.longitude) ? `
+      <div class="champ">
+        <label>📍 Preuve de présence</label>
+        <div class="mono">${r.latitude.toFixed(5)}, ${r.longitude.toFixed(5)}</div>
+        <a href="${lienCarte(r.latitude, r.longitude)}" target="_blank" rel="noopener" class="btn btn-contour btn-petit" style="display:inline-block;width:auto;margin-top:6px;text-decoration:none;">🗺️ Voir sur la carte</a>
+      </div>` : ''}
     ${genererGaleriePhotos(r.photos)}
   `;
   document.getElementById('modale-detail').classList.add('actif');
