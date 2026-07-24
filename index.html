@@ -561,11 +561,17 @@ a { color: inherit; text-decoration: none; }
         <label for="select-chantier-suivi">Chantier concerné</label>
         <select id="select-chantier-suivi"></select>
       </div>
-      <div class="ligne-champs" style="margin-bottom:16px;">
-        <button class="btn btn-vert" id="btn-nouveau-rapport">+ Nouveau rapport journalier</button>
-        <button class="btn btn-contour" id="btn-rapport-hebdo-suivi">📅 Rapport de la semaine</button>
+      <button class="btn btn-vert" id="btn-nouveau-rapport" style="margin-bottom:16px;">+ Nouveau rapport journalier</button>
+
+      <div class="carte-titre" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>📅 Rapport hebdomadaire automatique</span>
+        <span>
+          <button type="button" class="btn-icone" id="btn-semaine-precedente" title="Semaine précédente">◀</button>
+          <button type="button" class="btn-icone" id="btn-semaine-suivante" title="Semaine suivante">▶</button>
+        </span>
       </div>
       <div id="contenu-rapport-hebdo-suivi"></div>
+
       <div class="carte-titre">📋 Journal de suivi</div>
       <div id="liste-rapports"></div>
     </section>
@@ -595,7 +601,13 @@ a { color: inherit; text-decoration: none; }
       <div id="alertes-coherence"></div>
 
       <div class="carte">
-        <div class="carte-titre">📅 Rapport hebdomadaire</div>
+        <div class="carte-titre">📅 Cette semaine, chantier par chantier</div>
+        <div class="carte-sous">Généré automatiquement à partir des rapports journaliers — aucune action requise.</div>
+        <div id="synthese-hebdo-tous-chantiers"></div>
+      </div>
+
+      <div class="carte">
+        <div class="carte-titre">🔎 Consulter une autre semaine</div>
         <div class="champ">
           <label for="rh-chantier">Chantier</label>
           <select id="rh-chantier"></select>
@@ -1210,6 +1222,7 @@ const etat = {
   photosTempRapport: [],
   photosTempControle: [],
   positionRapportTemp: null,
+  semaineAffichee: null, // lundi (Date) de la semaine actuellement affichée dans Suivi
   eventInstallPWA: null
 };
 
@@ -1381,11 +1394,13 @@ function attacherEcouteurs() {
   document.getElementById('recherche-chantiers').addEventListener('input', afficherListeChantiersFiltree);
   document.getElementById('filtre-statut-chantiers').addEventListener('change', afficherListeChantiersFiltree);
 
-  document.getElementById('btn-rapport-hebdo-suivi').addEventListener('click', () => {
-    const idChantier = document.getElementById('select-chantier-suivi').value;
-    if (!idChantier) return toast('Créez d\'abord un chantier', 'erreur');
-    const lundi = lundiDeLaSemaine();
-    document.getElementById('contenu-rapport-hebdo-suivi').innerHTML = genererRapportHebdomadaire(idChantier, lundi.toISOString().slice(0, 10));
+  document.getElementById('btn-semaine-precedente').addEventListener('click', () => {
+    etat.semaineAffichee.setDate(etat.semaineAffichee.getDate() - 7);
+    afficherRapportHebdoSuivi();
+  });
+  document.getElementById('btn-semaine-suivante').addEventListener('click', () => {
+    etat.semaineAffichee.setDate(etat.semaineAffichee.getDate() + 7);
+    afficherRapportHebdoSuivi();
   });
 
   document.getElementById('btn-generer-rapport-hebdo').addEventListener('click', () => {
@@ -1404,7 +1419,10 @@ function attacherEcouteurs() {
   });
 
   // Suivi / rapports
-  document.getElementById('select-chantier-suivi').addEventListener('change', rafraichirListeRapports);
+  document.getElementById('select-chantier-suivi').addEventListener('change', () => {
+    rafraichirListeRapports();
+    afficherRapportHebdoSuivi();
+  });
   document.getElementById('btn-nouveau-rapport').addEventListener('click', ouvrirModaleRapport);
   document.getElementById('form-rapport').addEventListener('submit', gererCreationRapport);
   document.getElementById('btn-ajout-photo-rapport').addEventListener('click', () => document.getElementById('input-photo-rapport').click());
@@ -1584,6 +1602,7 @@ async function chargerDonneesUtilisateur() {
 
   rafraichirTableauBord();
   rafraichirListeRapports();
+  afficherRapportHebdoSuivi();
   rafraichirListeControles();
 }
 
@@ -1596,6 +1615,7 @@ function afficherVue(idVue) {
   document.getElementById(idVue).classList.remove('hidden');
   document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('actif', b.dataset.vue === idVue));
   if (idVue === 'vue-tableau-bord') rafraichirTableauBord();
+  if (idVue === 'vue-suivi') afficherRapportHebdoSuivi();
   if (idVue === 'vue-coherence') rafraichirVueCoherence();
 }
 
@@ -2011,6 +2031,33 @@ function lundiDeLaSemaine(dateStr) {
   return d;
 }
 
+// Évalue la cohérence d'UNE semaine de rapports (déjà filtrés/triés) en
+// appliquant les mêmes règles simples que la détection générale, mais
+// seulement entre les rapports de cette semaine-là. Ce n'est toujours pas
+// de l'IA/analyse d'image — des règles explicites, lisibles, vérifiables.
+function evaluerCoherenceSemaine(rapportsSemaine) {
+  const motifs = [];
+  for (let i = 1; i < rapportsSemaine.length; i++) {
+    const precedent = rapportsSemaine[i - 1];
+    const actuel = rapportsSemaine[i];
+    const delta = actuel.avancement - precedent.avancement;
+    if (delta < 0) {
+      motifs.push(`${formatDate(actuel.date)} : l'avancement recule (${precedent.avancement}% → ${actuel.avancement}%).`);
+    } else if (delta >= 25 && (!actuel.photos || !actuel.photos.length)) {
+      motifs.push(`${formatDate(actuel.date)} : bond de +${delta} points sans photo à l'appui.`);
+    }
+  }
+  rapportsSemaine.forEach(r => {
+    if ((!r.photos || !r.photos.length) && !r.latitude && Number(r.avancement) > 0) {
+      motifs.push(`${formatDate(r.date)} : aucune photo ni position — aucune preuve jointe.`);
+    }
+  });
+  if (rapportsSemaine.length < 2) {
+    motifs.push(`Seulement ${rapportsSemaine.length} rapport(s) cette semaine — couverture insuffisante pour bien juger l'avancement.`);
+  }
+  return { coherente: motifs.length === 0, motifs };
+}
+
 function genererRapportHebdomadaire(chantierId, dateDebutSemaine) {
   const lundi = new Date(dateDebutSemaine);
   const dimanche = new Date(lundi);
@@ -2031,16 +2078,22 @@ function genererRapportHebdomadaire(chantierId, dateDebutSemaine) {
       return d >= lundi && d <= dimanche;
     });
 
+  const periodeLabel = `${formatDate(lundi.toISOString().slice(0,10))} au ${formatDate(dimanche.toISOString().slice(0,10))}`;
+
   if (!rapportsSemaine.length) {
-    return `<div class="alerte alerte-jaune" style="margin-top:14px;">Aucun rapport journalier enregistré pour la semaine du ${formatDate(lundi.toISOString().slice(0,10))} au ${formatDate(dimanche.toISOString().slice(0,10))}.</div>`;
+    return `
+      <div class="carte" style="margin-top:14px;">
+        <div class="carte-titre">Semaine du ${periodeLabel}</div>
+        <div class="alerte alerte-rouge">⚠️ <div>Aucun rapport journalier cette semaine — <b>incohérence de suivi</b>, impossible de vérifier l'avancement réel.</div></div>
+      </div>
+    `;
   }
 
   const avancementDebut = rapportsSemaine[0].avancement;
   const avancementFin = rapportsSemaine[rapportsSemaine.length - 1].avancement;
-  const totalPhotos = rapportsSemaine.reduce((s, r) => s + (r.photos?.length || 0), 0);
   const effectifMoyen = Math.round(rapportsSemaine.reduce((s, r) => s + (Number(r.effectif) || 0), 0) / rapportsSemaine.length);
-  const nbJoursSansPhoto = rapportsSemaine.filter(r => !r.photos || !r.photos.length).length;
   const nbNonConformesSemaine = controlesSemaine.reduce((s, c) => s + (c.items || []).filter(i => i.etat === 'nonconforme').length, 0);
+  const verdict = evaluerCoherenceSemaine(rapportsSemaine);
 
   const joursHtml = rapportsSemaine.map(r => `
     <div style="padding:10px 0;border-bottom:1px solid var(--bordure);">
@@ -2051,17 +2104,35 @@ function genererRapportHebdomadaire(chantierId, dateDebutSemaine) {
 
   return `
     <div class="carte" style="margin-top:14px;">
-      <div class="carte-titre">Semaine du ${formatDate(lundi.toISOString().slice(0,10))} au ${formatDate(dimanche.toISOString().slice(0,10))}</div>
-      <div class="grille-stats">
+      <div class="carte-titre">Semaine du ${periodeLabel}</div>
+      <div class="${verdict.coherente ? 'alerte alerte-vert' : 'alerte alerte-rouge'}">
+        ${verdict.coherente ? '✅' : '⚠️'}
+        <div>
+          <b>${verdict.coherente ? 'Semaine cohérente' : verdict.motifs.length + ' incohérence(s) détectée(s) cette semaine'}</b>
+          ${!verdict.coherente ? `<ul style="margin:6px 0 0;padding-left:18px;font-size:13px;">${verdict.motifs.map(m => `<li>${echapper(m)}</li>`).join('')}</ul>` : ''}
+        </div>
+      </div>
+      <div class="grille-stats" style="margin-top:10px;">
         <div class="stat-carte or"><div class="val">${rapportsSemaine.length}</div><div class="lbl">Rapports</div></div>
         <div class="stat-carte vert"><div class="val">${avancementDebut}→${avancementFin}%</div><div class="lbl">Avancement</div></div>
         <div class="stat-carte jaune"><div class="val">${effectifMoyen}</div><div class="lbl">Effectif moy.</div></div>
         <div class="stat-carte rouge"><div class="val">${nbNonConformesSemaine}</div><div class="lbl">Non-conformités</div></div>
       </div>
-      ${nbJoursSansPhoto > 0 ? `<div class="alerte alerte-jaune">📷 ${nbJoursSansPhoto} rapport(s) sans photo cette semaine.</div>` : ''}
       <div style="margin-top:10px;">${joursHtml}</div>
     </div>
   `;
+}
+
+// Affiche automatiquement le rapport hebdomadaire du chantier actuellement
+// sélectionné dans l'espace Suivi, pour la semaine en cours (ou celle
+// choisie via les flèches ◀ ▶). Aucun clic n'est nécessaire.
+function afficherRapportHebdoSuivi() {
+  const zone = document.getElementById('contenu-rapport-hebdo-suivi');
+  if (!zone) return;
+  const idChantier = document.getElementById('select-chantier-suivi').value;
+  if (!idChantier) { zone.innerHTML = ''; return; }
+  if (!etat.semaineAffichee) etat.semaineAffichee = lundiDeLaSemaine();
+  zone.innerHTML = genererRapportHebdomadaire(idChantier, etat.semaineAffichee.toISOString().slice(0, 10));
 }
 
 // Détecte les incohérences pour UN chantier, en comparant chaque rapport
@@ -2138,20 +2209,66 @@ function rafraichirVueCoherence() {
   const conteneur = document.getElementById('alertes-coherence');
   const incoherences = detecterToutesIncoherences();
 
-  if (!incoherences.length) {
-    conteneur.innerHTML = `<div class="alerte alerte-vert">✅ Aucune incohérence détectée sur vos chantiers actuellement.</div>`;
+  conteneur.innerHTML = incoherences.length
+    ? incoherences.map(a => `
+        <div class="alerte alerte-rouge" style="align-items:flex-start;">
+          ⚠️
+          <div>
+            <b>${echapper(a.chantier.nom)}</b>
+            <div style="font-size:13px;margin-top:2px;">${echapper(a.motif)}</div>
+          </div>
+        </div>
+      `).join('')
+    : `<div class="alerte alerte-vert">✅ Aucune incohérence détectée sur vos chantiers actuellement.</div>`;
+
+  afficherSyntheseHebdoTousChantiers();
+}
+
+// Génère automatiquement, pour CHAQUE chantier de l'entreprise, le verdict
+// de cohérence de la semaine en cours — sans aucune sélection manuelle.
+function afficherSyntheseHebdoTousChantiers() {
+  const conteneur = document.getElementById('synthese-hebdo-tous-chantiers');
+  if (!conteneur) return;
+
+  if (!etat.chantiers.length) {
+    conteneur.innerHTML = `<div class="champ-aide">Aucun chantier pour le moment.</div>`;
     return;
   }
 
-  conteneur.innerHTML = incoherences.map(a => `
-    <div class="alerte alerte-rouge" style="align-items:flex-start;">
-      ⚠️
-      <div>
-        <b>${echapper(a.chantier.nom)}</b>
-        <div style="font-size:13px;margin-top:2px;">${echapper(a.motif)}</div>
+  const lundi = lundiDeLaSemaine();
+  conteneur.innerHTML = etat.chantiers.map(c => {
+    const rapportsSemaine = etat.rapports
+      .filter(r => r.chantierId === c.id)
+      .filter(r => {
+        const d = new Date(r.date + 'T00:00:00');
+        const dimanche = new Date(lundi); dimanche.setDate(lundi.getDate() + 6);
+        return d >= lundi && d <= dimanche;
+      })
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    if (!rapportsSemaine.length) {
+      return `<div class="alerte alerte-jaune" style="margin-top:8px;">📭 <div><b>${echapper(c.nom)}</b> — aucun rapport cette semaine.</div></div>`;
+    }
+    const verdict = evaluerCoherenceSemaine(rapportsSemaine);
+    return `
+      <div class="${verdict.coherente ? 'alerte alerte-vert' : 'alerte alerte-rouge'}" style="margin-top:8px;cursor:pointer;" data-chantier-id="${c.id}">
+        ${verdict.coherente ? '✅' : '⚠️'}
+        <div>
+          <b>${echapper(c.nom)}</b> — ${rapportsSemaine.length} rapport(s), avancement ${rapportsSemaine[0].avancement}→${rapportsSemaine[rapportsSemaine.length-1].avancement}%
+          ${!verdict.coherente ? `<div style="font-size:12px;margin-top:2px;">${verdict.motifs.length} point(s) à vérifier</div>` : ''}
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
+
+  conteneur.querySelectorAll('[data-chantier-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      document.getElementById('rh-chantier').value = el.dataset.chantierId;
+      document.getElementById('contenu-rapport-hebdo').innerHTML =
+        genererRapportHebdomadaire(el.dataset.chantierId, lundi.toISOString().slice(0, 10));
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
 }
 
 // Bannière affichée sur le tableau de bord de l'entreprise si des
